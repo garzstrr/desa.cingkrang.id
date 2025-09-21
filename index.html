@@ -1,747 +1,1945 @@
+<!DOCTYPE html>
 <html lang="id">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   Desa Grumbul Cingkrang - Website Resmi
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GarzProject | Advanced Cyber Terminal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-   body {
-      font-family: 'Inter', sans-serif;
+    * {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Orbitron', sans-serif;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+    :root {
+      --primary: #0ff;
+      --secondary: #f0f;
+      --accent: #ff0;
+      --dark: #0a0a12;
+      --darker: #050508;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .cyber-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--darker) 0%, var(--dark) 100%);
+      z-index: -3;
+    }
+
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+      z-index: -2;
+    }
+
+    .cyber-pulse {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, transparent 0%, var(--darker) 80%);
+      opacity: 0.5;
+      z-index: -1;
+      animation: pulse 10s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.7; }
+    }
+
+    #hackerRain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .container {
+      background: rgba(10, 10, 18, 0.8);
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      margin: 20px auto;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .visible {
+      display: block;
+    }
+
+    h2 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px var(--primary);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--primary);
+      border-radius: 4px;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      border: none;
+      border-radius: 4px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Orbitron', sans-serif;
+      position: relative;
+      z-index: 20;
+    }
+
+    button:hover {
+      box-shadow: 0 0 15px var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      font-size: 12px;
+    }
+
+    .support {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .cyber-loader {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 1s linear infinite;
+      margin-right: 5px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .logo-container {
+      text-align: center;
+      margin: 30px 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-container img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 20px var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .logo-container h1 {
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      margin-bottom: 5px;
+      text-shadow: 0 0 10px var(--primary);
+    }
+
+    .cyber-text {
+      color: var(--primary);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .mini-btn-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn-mini {
+      width: auto;
+      padding: 8px 12px;
+      font-size: 12px;
+      background: rgba(0, 255, 255, 0.2);
+      color: var(--primary);
+      position: relative;
+      z-index: 20;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 20px;
+      margin-right: 15px;
+    }
+
+    .loading-wrapper {
+      width: 100%;
+      height: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      background: rgba(10, 10, 18, 0.9);
+      border-left: 4px solid var(--primary);
+      border-radius: 4px;
+      color: #fff;
+      transform: translateX(150%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      max-width: 300px;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification.success {
+      border-left-color: #00ff8c;
+    }
+
+    .notification.error {
+      border-left-color: #ff3a3a;
+    }
+
+    .notification.warning {
+      border-left-color: #ffcc00;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 30px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--primary);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    .sidebar-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background: rgba(10, 10, 18, 0.95);
+      border-left: 1px solid var(--primary);
+      padding: 60px 20px 20px;
+      z-index: 1000;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .sidebar-menu.active {
+      right: 0;
+    }
+
+    .sidebar-menu h3 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+      border-bottom: 1px solid var(--primary);
+      padding-bottom: 10px;
+    }
+
+    .menu-item {
+      padding: 12px 15px;
+      margin: 8px 0;
+      background: rgba(0, 255, 255, 0.1);
+      border-left: 3px solid var(--primary);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 20;
+    }
+
+    .menu-item:hover {
+      background: rgba(0, 255, 255, 0.2);
+      transform: translateX(5px);
+    }
+
+    .menu-item i {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+
+    .floating-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 999;
+    }
+
+    .floating-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(10, 10, 18, 0.8);
+      border: 1px solid var(--primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+      position: relative;
+      z-index: 20;
+    }
+
+    .floating-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--primary);
+    }
+
+    .tooltip {
+      position: relative;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: rgba(10, 10, 18, 0.9);
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      right: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 12px;
+      border: 1px solid var(--primary);
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .theme-selector {
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      background: rgba(10, 10, 18, 0.9);
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 10px;
+      display: none;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 180px;
+      z-index: 1002;
+    }
+
+    .theme-selector.show {
+      display: flex;
+    }
+
+    .theme-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .theme-option:hover {
+      transform: scale(1.1);
+      border-color: var(--primary);
+    }
+
+    .terminal-output {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--primary);
+      border-radius: 4px;
+      padding: 15px;
+      height: 200px;
+      overflow-y: auto;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      color: var(--primary);
+    }
+
+    .history-item {
+      padding: 10px;
+      margin: 8px 0;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      font-size: 12px;
+      border-left: 3px solid #666;
+    }
+
+    .history-success {
+      border-left-color: #00ff8c;
+    }
+
+    .history-failed {
+      border-left-color: #ff3a3a;
+    }
+
+    .server-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ff3a3a;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #00ff8c;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .closed-notice {
+      text-align: center;
+      padding: 15px;
+      background: rgba(255, 58, 58, 0.2);
+      border: 1px solid #ff3a3a;
+      border-radius: 4px;
+      margin: 15px 0;
+    }
+
+    .info-text {
+      font-size: 12px;
+      color: #aaa;
+      text-align: center;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .ip-check-container {
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      margin: 15px 0;
+    }
+
+    .ip-result {
+      margin-top: 15px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--primary);
+      white-space: pre-wrap;
+    }
+
+    .ddos-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ddos-button {
+      background: linear-gradient(45deg, #ff3a3a, #ff6b6b);
+    }
+
+    .ddos-status {
+      text-align: center;
+      font-weight: bold;
+      margin: 10px 0;
+      padding: 5px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .ai-chat-container {
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      margin: 15px 0;
+      height: 300px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ai-message {
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+
+    .ai-user {
+      background: rgba(0, 255, 255, 0.2);
+      align-self: flex-end;
+      border: 1px solid var(--primary);
+    }
+
+    .ai-bot {
+      background: rgba(255, 0, 255, 0.2);
+      align-self: flex-start;
+      border: 1px solid var(--secondary);
+    }
+
+    .ai-input-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .ai-input {
+      flex: 1;
+    }
+
+    .ai-send {
+      width: auto;
+      padding: 0 15px;
+    }
+
+    .wifi-killer-container {
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      margin: 15px 0;
+    }
+
+    .wifi-killer-result {
+      margin-top: 15px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--primary);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .wifi-killer-button {
+      background: linear-gradient(45deg, #ff3a3a, #ff6b6b);
+    }
+
+    .loading-animation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      margin: 10px 0;
+    }
+
+    .loading-dot {
+      width: 10px;
+      height: 10px;
+      margin: 0 5px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      animation: loading 1.5s infinite ease-in-out;
+    }
+
+    .loading-dot:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .loading-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .loading-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes loading {
+      0%, 100% { transform: scale(0.8); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    /* Fix untuk memastikan elemen dapat diklik */
+    .clickable {
+      position: relative;
+      z-index: 100;
     }
   </style>
- </head>
- <body class="bg-gray-50 text-gray-800">
-  <header class="bg-green-700 text-white shadow-md sticky top-0 z-50">
-   <div class="container mx-auto flex flex-wrap items-center justify-between p-4">
-    <a class="text-2xl font-bold flex items-center space-x-2" href="#beranda">
-     <img alt="Logo Desa Grumbul Cingkrang, a green leaf emblem" class="rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/8181c969-d41c-4d52-470e-dc6be6ea4852.jpg" width="40"/>
-     <span>
-      Desa Grumbul Cingkrang
-     </span>
-    </a>
-    <nav class="hidden md:flex space-x-6 font-semibold text-green-100">
-     <a class="hover:text-white transition" href="#beranda">
-      Beranda
-     </a>
-     <a class="hover:text-white transition" href="#profil">
-      Profil Desa
-     </a>
-     <a class="hover:text-white transition" href="#pemerintahan">
-      Pemerintahan
-     </a>
-     <a class="hover:text-white transition" href="#layanan">
-      Layanan Publik
-     </a>
-     <a class="hover:text-white transition" href="#berita">
-      Berita &amp; Agenda
-     </a>
-     <a class="hover:text-white transition" href="#galeri">
-      Galeri
-     </a>
-     <a class="hover:text-white transition" href="#transparansi">
-      Transparansi
-     </a>
-     <a class="hover:text-white transition" href="#kontak">
-      Kontak
-     </a>
-    </nav>
-    <button aria-label="Toggle menu" class="md:hidden focus:outline-none focus:ring-2 focus:ring-green-300" id="menu-btn">
-     <i class="fas fa-bars text-2xl">
-     </i>
-    </button>
-   </div>
-   <nav class="hidden bg-green-600 text-green-100 px-4 pb-4 md:hidden space-y-2 font-semibold" id="mobile-menu">
-    <a class="block py-2 hover:text-white transition" href="#beranda">
-     Beranda
-    </a>
-    <a class="block py-2 hover:text-white transition" href="#profil">
-     Profil Desa
-    </a>
-    <a class="block py-2 hover:text-white transition" href="#pemerintahan">
-     Pemerintahan
-    </a>
-    <a class="block py-2 hover:text-white transition" href="#layanan">
-     Layanan Publik
-    </a>
-    <a class="block py-2 hover:text-white transition" href="#berita">
-     Berita &amp; Agenda
-    </a>
-    <a class="block py-2 hover:text-white transition" href="#galeri">
-     Galeri
-    </a>
-    <a class="block py-2 hover:text-white transition" href="#transparansi">
-     Transparansi
-    </a>
-    <a class="block py-2 hover:text-white transition" href="#kontak">
-     Kontak
-    </a>
-   </nav>
-  </header>
-  <main class="container mx-auto px-4 py-8 space-y-20 max-w-7xl">
-   <!-- Beranda -->
-   <section class="space-y-8" id="beranda">
-    <h1 class="text-4xl font-extrabold text-green-800 text-center">
-     Selamat Datang di Desa Grumbul Cingkrang
-    </h1>
-    <div class="flex flex-col md:flex-row items-center md:items-start md:space-x-10">
-     <img alt="Panorama landscape of Desa Grumbul Cingkrang with green fields, traditional houses, and blue sky" class="rounded-lg shadow-lg w-full md:w-1/2" height="400" src="https://files.catbox.moe/shifz0.jpg" width="600"/>
-     <div class="mt-6 md:mt-0 md:w-1/2 space-y-4 text-gray-700">
-      <p>
-       Desa Grumbul Cingkrang adalah desa yang kaya akan budaya dan tradisi, terletak di
-            kawasan yang asri dengan pemandangan alam yang indah. Kami berkomitmen untuk
-            membangun desa yang maju, mandiri, dan berkelanjutan demi kesejahteraan seluruh
-            warga.
-      </p>
-      <div class="bg-green-100 border-l-4 border-green-600 p-4">
-       <h2 class="font-semibold text-green-800 text-lg mb-2">
-        Pengumuman Penting
-       </h2>
-       <ul class="list-disc list-inside space-y-1 text-green-900">
-        <li>
-         Pelaksanaan Musyawarah Desa pada 15 Juli 2025 di Balai Desa.
-        </li>
-        <li>
-         Pendaftaran penerima bantuan belum terbuka.
-        </li>
-        <li>
-         Program pelatihan pertanian organik dimulai bulan depan.
-        </li>
-       </ul>
-      </div>
-     </div>
-    </div>
-   </section>
-   <!-- Profil Desa -->
-   <section class="space-y-8" id="profil">
-    <h2 class="text-3xl font-bold text-green-800 border-b-4 border-green-600 pb-2">
-     Profil Desa
-    </h2>
-    <div class="space-y-6">
-     <article>
-      <h3 class="text-xl font-semibold text-green-700 mb-2">
-       Sejarah Desa
-      </h3>
-      <p class="text-gray-700 leading-relaxed">
-       Desa Grumbul Cingkrang berdiri sejak tahun 1920, bermula dari komunitas petani yang
-            menetap di lembah subur ini. Seiring waktu, desa ini berkembang menjadi pusat
-            kegiatan budaya dan pertanian yang penting di wilayah sekitarnya.
-      </p>
-     </article>
-     <article>
-      <h3 class="text-xl font-semibold text-green-700 mb-2">
-       Geografis
-      </h3>
-      <p class="text-gray-700 leading-relaxed">
-       Terletak di dataran rendah dengan ketinggian sekitar 150 meter di atas permukaan laut,
-            desa ini dikelilingi oleh perbukitan hijau dan sungai kecil yang mengalir sepanjang
-            tahun, mendukung kegiatan pertanian dan kehidupan sehari-hari warga.
-      </p>
-     </article>
-     <article>
-      <h3 class="text-xl font-semibold text-green-700 mb-2">
-       Visi &amp; Misi
-      </h3>
-      <ul class="list-disc list-inside text-gray-700 space-y-1">
-       <li>
-        <strong>
-         Visi:
-        </strong>
-        Menjadi desa yang maju, mandiri, dan berbudaya dengan
-              masyarakat yang sejahtera.
-       </li>
-       <li>
-        <strong>
-         Misi:
-        </strong>
-        Meningkatkan kualitas pendidikan, kesehatan, dan
-              infrastruktur desa secara berkelanjutan.
-       </li>
-       <li>
-        <strong>
-         Misi:
-        </strong>
-        Mengembangkan potensi pertanian dan pariwisata desa.
-       </li>
-       <li>
-        <strong>
-         Misi:
-        </strong>
-        Mendorong partisipasi aktif masyarakat dalam pembangunan
-              desa.
-       </li>
-      </ul>
-     </article>
-     <article>
-      <h3 class="text-xl font-semibold text-green-700 mb-2">
-       Peta Desa
-      </h3>
-      <img alt="Detailed map of Desa Grumbul Cingkrang showing boundaries, roads, rivers, and landmarks" class="rounded-lg shadow-md w-full" height="400" src="https://storage.googleapis.com/a1aa/image/14e48e89-948e-4c5d-cf5d-b1230390760c.jpg" width="800"/>
-     </article>
-    </div>
-   </section>
-   <!-- Pemerintahan -->
-   <section class="space-y-8" id="pemerintahan">
-    <h2 class="text-3xl font-bold text-green-800 border-b-4 border-green-600 pb-2">
-     Pemerintahan Desa
-    </h2>
-    <article>
-     <h3 class="text-xl font-semibold text-green-700 mb-4">
-      Struktur Organisasi
-     </h3>
-     <img alt="Organizational chart of Desa Grumbul Cingkrang government structure with boxes and connecting lines" class="rounded-lg shadow-md w-full" height="400" src="https://storage.googleapis.com/a1aa/image/5f2ea5bf-3513-473d-9baf-9c001eea9ee5.jpg" width="900"/>
-    </article>
-    <article>
-     <h3 class="text-xl font-semibold text-green-700 mb-4">
-      Data Perangkat Desa
-     </h3>
-     <div class="overflow-x-auto rounded-lg shadow-md border border-green-300">
-      <table class="min-w-full bg-white text-left text-gray-700">
-       <thead class="bg-green-100 text-green-800 font-semibold">
-        <tr>
-         <th class="px-4 py-3">
-          Nama
-         </th>
-         <th class="px-4 py-3">
-          Jabatan
-         </th>
-         <th class="px-4 py-3">
-          Kontak
-         </th>
-        </tr>
-       </thead>
-       <tbody>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          Budi Santoso
-         </td>
-         <td class="px-4 py-3">
-          Kepala Desa
-         </td>
-         <td class="px-4 py-3">
-          0812-3456-7890
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          Siti Aminah
-         </td>
-         <td class="px-4 py-3">
-          Sekretaris Desa
-         </td>
-         <td class="px-4 py-3">
-          0813-9876-5432
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          Joko Prasetyo
-         </td>
-         <td class="px-4 py-3">
-          Bendahara Desa
-         </td>
-         <td class="px-4 py-3">
-          0812-1122-3344
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          Dewi Lestari
-         </td>
-         <td class="px-4 py-3">
-          Kepala Seksi Pemerintahan
-         </td>
-         <td class="px-4 py-3">
-          0813-5566-7788
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          Agus Wijaya
-         </td>
-         <td class="px-4 py-3">
-          Kepala Seksi Kesejahteraan
-         </td>
-         <td class="px-4 py-3">
-          0812-6677-8899
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          Rina Marlina
-         </td>
-         <td class="px-4 py-3">
-          Kepala Seksi Pelayanan
-         </td>
-         <td class="px-4 py-3">
-          0813-7788-9900
-         </td>
-        </tr>
-       </tbody>
-      </table>
-     </div>
-    </article>
-   </section>
-   <!-- Layanan Publik -->
-   <section class="space-y-8" id="layanan">
-    <h2 class="text-3xl font-bold text-green-800 border-b-4 border-green-600 pb-2">
-     Layanan Publik
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-     <article>
-      <h3 class="text-xl font-semibold text-green-700 mb-4">
-       Formulir Surat Online
-      </h3>
-      <form action="#" class="bg-white p-6 rounded-lg shadow-md space-y-5" method="POST" novalidate="">
-       <div>
-        <label class="block font-semibold mb-1 text-gray-700" for="nama">
-         Nama Lengkap
-        </label>
-        <input class="w-full border border-green-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" id="nama" name="nama" placeholder="Masukkan nama lengkap" required="" type="text"/>
-       </div>
-       <div>
-        <label class="block font-semibold mb-1 text-gray-700" for="nik">
-         NIK
-        </label>
-        <input class="w-full border border-green-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" id="nik" name="nik" pattern="\d{16}" placeholder="Masukkan NIK (16 digit)" required="" title="NIK harus 16 digit angka" type="text"/>
-       </div>
-       <div>
-        <label class="block font-semibold mb-1 text-gray-700" for="jenis-surat">
-         Jenis Surat
-        </label>
-        <select class="w-full border border-green-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" id="jenis-surat" name="jenis-surat" required="">
-         <option disabled="" selected="" value="">
-          Pilih jenis surat
-         </option>
-         <option value="surat-keterangan-domisili">
-          Surat Keterangan Domisili
-         </option>
-         <option value="surat-keterangan-usaha">
-          Surat Keterangan Usaha
-         </option>
-         <option value="surat-pengantar-ktp">
-          Surat Pengantar KTP
-         </option>
-         <option value="surat-pengantar-kk">
-          Surat Pengantar KK
-         </option>
-        </select>
-       </div>
-       <div>
-        <label class="block font-semibold mb-1 text-gray-700" for="keterangan">
-         Keterangan
-        </label>
-        <textarea class="w-full border border-green-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" id="keterangan" name="keterangan" placeholder="Isi keterangan tambahan jika perlu" rows="3"></textarea>
-       </div>
-       <button class="bg-green-700 text-white font-semibold px-6 py-2 rounded-md hover:bg-green-800 transition" type="submit">
-        Kirim Permohonan
-       </button>
-      </form>
-     </article>
-     <article>
-      <h3 class="text-xl font-semibold text-green-700 mb-4">
-       Syarat Administrasi
-      </h3>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
-       <li>
-        Fotokopi KTP dan KK yang masih berlaku.
-       </li>
-       <li>
-        Surat pengantar RT/RW setempat.
-       </li>
-       <li>
-        Formulir permohonan yang telah diisi lengkap.
-       </li>
-       <li>
-        Dokumen pendukung sesuai jenis surat yang diajukan.
-       </li>
-       <li>
-        Biaya administrasi sesuai ketentuan desa.
-       </li>
-      </ul>
-      <img alt="Stack of official administrative documents with stamps and signatures" class="mt-6 rounded-lg shadow-md w-full max-w-md" height="250" src="https://storage.googleapis.com/a1aa/image/69299e56-dd8e-47cb-cf80-19a015f62c4b.jpg" width="400"/>
-     </article>
-    </div>
-   </section>
-   <!-- Berita & Agenda -->
-   <section class="space-y-8" id="berita">
-    <h2 class="text-3xl font-bold text-green-800 border-b-4 border-green-600 pb-2">
-     Berita &amp; Agenda
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-     <article class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
-      <img alt="Community members participating in gotong royong cleaning village area" class="w-full object-cover h-48" height="250" src="https://storage.googleapis.com/a1aa/image/d790a9db-20d4-4591-da98-0f502112d4ee.jpg" width="400"/>
-      <div class="p-4 flex flex-col flex-grow">
-       <h3 class="font-semibold text-green-700 text-lg mb-2">
-        Kegiatan Gotong Royong Bersih Desa
-       </h3>
-       <p class="text-gray-700 flex-grow">
-        Warga desa bersama-sama membersihkan lingkungan desa sebagai bentuk kepedulian dan
-              menjaga kebersihan.
-       </p>
-       <time class="mt-4 text-sm text-green-600 font-semibold" datetime="2024-06-10">
-        10 Juni 2024
-       </time>
-      </div>
-     </article>
-     <article class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
-      <img alt="Farmers attending organic farming training session in village hall" class="w-full object-cover h-48" height="250" src="https://storage.googleapis.com/a1aa/image/34015c68-a950-403a-9a86-7dc722cfc1e4.jpg" width="400"/>
-      <div class="p-4 flex flex-col flex-grow">
-       <h3 class="font-semibold text-green-700 text-lg mb-2">
-        Pelatihan Pertanian Organik
-       </h3>
-       <p class="text-gray-700 flex-grow">
-        Program pelatihan untuk meningkatkan kemampuan petani dalam mengelola pertanian
-              organik yang ramah lingkungan.
-       </p>
-       <time class="mt-4 text-sm text-green-600 font-semibold" datetime="2024-07-05">
-        5 Juli 2024
-       </time>
-      </div>
-     </article>
-     <article class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
-      <img alt="Village meeting with community members discussing development plans" class="w-full object-cover h-48" height="250" src="https://storage.googleapis.com/a1aa/image/f433ee03-0a64-47d0-0b19-90b6c7d3edc1.jpg" width="400"/>
-      <div class="p-4 flex flex-col flex-grow">
-       <h3 class="font-semibold text-green-700 text-lg mb-2">
-        Musyawarah Desa
-       </h3>
-       <p class="text-gray-700 flex-grow">
-        Musyawarah desa untuk membahas rencana pembangunan dan aspirasi warga desa.
-       </p>
-       <time class="mt-4 text-sm text-green-600 font-semibold" datetime="2024-07-15">
-        15 Juli 2024
-       </time>
-      </div>
-     </article>
-    </div>
-    <div class="mt-10">
-     <h3 class="text-2xl font-semibold text-green-700 mb-4">
-      Kalender Event Desa 2024
-     </h3>
-     <div class="overflow-x-auto rounded-lg border border-green-300 bg-white shadow-md">
-      <table class="min-w-full text-left text-gray-700">
-       <thead class="bg-green-100 text-green-800 font-semibold">
-        <tr>
-         <th class="px-4 py-3">
-          Tanggal
-         </th>
-         <th class="px-4 py-3">
-          Event
-         </th>
-         <th class="px-4 py-3">
-          Lokasi
-         </th>
-        </tr>
-       </thead>
-       <tbody>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          10 Juni 2024
-         </td>
-         <td class="px-4 py-3">
-          Gotong Royong Bersih Desa
-         </td>
-         <td class="px-4 py-3">
-          Balai Desa
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          5 Juli 2024
-         </td>
-         <td class="px-4 py-3">
-          Pelatihan Pertanian Organik
-         </td>
-         <td class="px-4 py-3">
-          Balai Desa
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          15 Juli 2024
-         </td>
-         <td class="px-4 py-3">
-          Musyawarah Desa
-         </td>
-         <td class="px-4 py-3">
-          Balai Desa
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          17 Agustus 2024
-         </td>
-         <td class="px-4 py-3">
-          Peringatan Kemerdekaan RI
-         </td>
-         <td class="px-4 py-3">
-          Lapangan Desa
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          1 Oktober 2024
-         </td>
-         <td class="px-4 py-3">
-          Festival Budaya Desa
-         </td>
-         <td class="px-4 py-3">
-          Balai Desa
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          25 Desember 2024
-         </td>
-         <td class="px-4 py-3">
-          Perayaan Natal Bersama
-         </td>
-         <td class="px-4 py-3">
-          Gereja Desa
-         </td>
-        </tr>
-       </tbody>
-      </table>
-     </div>
-    </div>
-   </section>
-   <!-- Galeri -->
-   <section class="space-y-8" id="galeri">
-    <h2 class="text-3xl font-bold text-green-800 border-b-4 border-green-600 pb-2">
-     Galeri Foto &amp; Video
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-     <img alt="Farmers harvesting rice in golden paddy fields under clear blue sky" class="rounded-lg shadow-md object-cover w-full h-60" height="300" src="https://storage.googleapis.com/a1aa/image/19f1211f-6836-4d13-b8d7-ab64a2221296.jpg" width="400"/>
-     <img alt="Traditional cultural festival with villagers wearing colorful costumes and dancing" class="rounded-lg shadow-md object-cover w-full h-60" height="300" src="https://storage.googleapis.com/a1aa/image/01d1b8ff-9541-4a6d-2dfe-039e0fe9cfc3.jpg" width="400"/>
-     <img alt="Community members working together cleaning village streets and public spaces" class="rounded-lg shadow-md object-cover w-full h-60" height="300" src="https://storage.googleapis.com/a1aa/image/2a87699f-ce5f-4d9d-7b81-3894fa60cda4.jpg" width="400"/>
-     <img alt="Village meeting with community members seated in a hall discussing development plans" class="rounded-lg shadow-md object-cover w-full h-60" height="300" src="https://storage.googleapis.com/a1aa/image/64ca9d87-1365-4985-ac90-177ff7d488ec.jpg" width="400"/>
-     <img alt="Farmers attending training session on organic farming techniques in village hall" class="rounded-lg shadow-md object-cover w-full h-60" height="300" src="https://storage.googleapis.com/a1aa/image/0338a432-c146-4ddf-c75f-eac2b83093d5.jpg" width="400"/>
-     <img alt="Thumbnail image showing villagers participating in various community activities" class="rounded-lg shadow-md object-cover w-full h-60" height="300" src="https://storage.googleapis.com/a1aa/image/7f8b8cf4-19bb-466e-d397-fb39b5abba3f.jpg" width="400"/>
-    </div>
-   </section>
-   <!-- Transparansi -->
-   <section class="space-y-8" id="transparansi">
-    <h2 class="text-3xl font-bold text-green-800 border-b-4 border-green-600 pb-2">
-     Transparansi Desa
-    </h2>
-    <article>
-     <h3 class="text-xl font-semibold text-green-700 mb-4">
-      APBDes 2024
-     </h3>
-     <img alt="Bar chart showing APBDes 2024 budget allocation for Desa Grumbul Cingkrang" class="rounded-lg shadow-md w-full" height="400" src="https://storage.googleapis.com/a1aa/image/6779bb21-a155-41af-b82a-9584569706cf.jpg" width="900"/>
-    </article>
-    <article>
-     <h3 class="text-xl font-semibold text-green-700 mb-4">
-      Laporan Keuangan
-     </h3>
-     <div class="overflow-x-auto rounded-lg border border-green-300 bg-white shadow-md">
-      <table class="min-w-full text-left text-gray-700">
-       <thead class="bg-green-100 text-green-800 font-semibold">
-        <tr>
-         <th class="px-4 py-3">
-          Bulan
-         </th>
-         <th class="px-4 py-3">
-          Pemasukan (Rp)
-         </th>
-         <th class="px-4 py-3">
-          Pengeluaran (Rp)
-         </th>
-         <th class="px-4 py-3">
-          Saldo (Rp)
-         </th>
-        </tr>
-       </thead>
-       <tbody>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          Januari
-         </td>
-         <td class="px-4 py-3">
-          50,000,000
-         </td>
-         <td class="px-4 py-3">
-          30,000,000
-         </td>
-         <td class="px-4 py-3">
-          20,000,000
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          Februari
-         </td>
-         <td class="px-4 py-3">
-          45,000,000
-         </td>
-         <td class="px-4 py-3">
-          25,000,000
-         </td>
-         <td class="px-4 py-3">
-          20,000,000
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          Maret
-         </td>
-         <td class="px-4 py-3">
-          55,000,000
-         </td>
-         <td class="px-4 py-3">
-          35,000,000
-         </td>
-         <td class="px-4 py-3">
-          20,000,000
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          April
-         </td>
-         <td class="px-4 py-3">
-          60,000,000
-         </td>
-         <td class="px-4 py-3">
-          40,000,000
-         </td>
-         <td class="px-4 py-3">
-          20,000,000
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          Mei
-         </td>
-         <td class="px-4 py-3">
-          50,000,000
-         </td>
-         <td class="px-4 py-3">
-          30,000,000
-         </td>
-         <td class="px-4 py-3">
-          20,000,000
-         </td>
-        </tr>
-        <tr class="border-t border-green-200 hover:bg-green-50">
-         <td class="px-4 py-3">
-          Juni
-         </td>
-         <td class="px-4 py-3">
-          55,000,000
-         </td>
-         <td class="px-4 py-3">
-          35,000,000
-         </td>
-         <td class="px-4 py-3">
-          20,000,000
-         </td>
-        </tr>
-       </tbody>
-      </table>
-     </div>
-    </article>
-    <article>
-     <h3 class="text-xl font-semibold text-green-700 mb-4">
-      Proyek Desa
-     </h3>
-     <ul class="list-disc list-inside text-gray-700 space-y-2">
-      <li>
-       Pembangunan jalan desa sepanjang 2 km, selesai pada Maret 2024 dengan anggaran Rp
-            500.000.000.
-      </li>
-      <li>
-       Renovasi Balai Desa, selesai pada Mei 2024 dengan anggaran Rp 200.000.000.
-      </li>
-      <li>
-       Pembangunan irigasi pertanian, sedang berjalan dengan target selesai Desember 2024.
-      </li>
-      <li>
-       Pengadaan sarana olahraga desa, direncanakan mulai Agustus 2024.
-      </li>
-     </ul>
-    </article>
-   </section>
-   <!-- Kontak -->
-   <section class="space-y-8" id="kontak">
-    <h2 class="text-3xl font-bold text-green-800 border-b-4 border-green-600 pb-2">
-     Kontak &amp; Aspirasi Warga
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-     <article>
-      <h3 class="text-xl font-semibold text-green-700 mb-4">
-       Form Aspirasi Warga
-      </h3>
-      <form action="#" class="bg-white p-6 rounded-lg shadow-md space-y-5" method="POST" novalidate="">
-       <div>
-        <label class="block font-semibold mb-1 text-gray-700" for="nama-aspirasi">
-         Nama Lengkap
-        </label>
-        <input class="w-full border border-green-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" id="nama-aspirasi" name="nama-aspirasi" placeholder="Masukkan nama lengkap" required="" type="text"/>
-       </div>
-       <div>
-        <label class="block font-semibold mb-1 text-gray-700" for="email-aspirasi">
-         Email
-        </label>
-        <input class="w-full border border-green-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" id="email-aspirasi" name="email-aspirasi" placeholder="Masukkan email" required="" type="email"/>
-       </div>
-       <div>
-        <label class="block font-semibold mb-1 text-gray-700" for="isi-aspirasi">
-         Isi Aspirasi
-        </label>
-        <textarea class="w-full border border-green-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500" id="isi-aspirasi" name="isi-aspirasi" placeholder="Tulis aspirasi atau saran Anda" required="" rows="4"></textarea>
-       </div>
-       <button class="bg-green-700 text-white font-semibold px-6 py-2 rounded-md hover:bg-green-800 transition" type="submit">
-        Kirim Aspirasi
-       </button>
-      </form>
-     </article>
-     <article>
-      <h3 class="text-xl font-semibold text-green-700 mb-4">
-       Alamat Kantor Desa
-      </h3>
-      <address class="not-italic text-gray-700 space-y-3">
-       <p>
-        <i class="fas fa-map-marker-alt text-green-700 mr-2">
-        </i>
-        Jl. Raya Grumbul Cingkrang
-              No. 12, Kecamatan Sukamaju, Kabupaten Sukabumi, Jawa Barat, Indonesia
-       </p>
-       <p>
-        <i class="fas fa-phone-alt text-green-700 mr-2">
-        </i>
-        Telp: (0266) 123-4567
-       </p>
-       <p>
-        <i class="fas fa-envelope text-green-700 mr-2">
-        </i>
-        Email:
-        <a class="text-green-700 hover:underline" href="mailto:info@grumbulcingkrang.desa.id">
-         info@grumbulcingkrang.desa.id
-        </a>
-       </p>
-       <img alt="Front view of Desa Grumbul Cingkrang village office building with green surroundings" class="rounded-lg shadow-md mt-4 w-full max-w-md" height="300" src="https://storage.googleapis.com/a1aa/image/8aba59cc-92cc-4076-c284-4e8990639b27.jpg" width="400"/>
-      </address>
-     </article>
-    </div>
-   </section>
-  </main>
-  <footer class="bg-green-700 text-green-100 py-6 mt-20">
-   <div class="container mx-auto text-center text-sm">
-    © 2024 Desa Grumbul Cingkrang. Semua hak cipta dilindungi.
-   </div>
-  </footer>
-  <script>
-   const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
+</head>
+<body>
+  <div class="cyber-bg"></div>
+  <div class="cyber-grid"></div>
+  <div class="cyber-pulse"></div>
+  <canvas id="hackerRain"></canvas>
 
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+  <audio id="player" autoplay controls style="display:none"></audio>
+
+  <div class="notification" id="notification">
+    <span id="notification-message"></span>
+  </div>
+
+  <!-- Menu Toggle (Garis 3) -->
+  <div class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Sidebar Menu -->
+  <div class="sidebar-menu" id="sidebarMenu">
+    <h3>SYSTEM MENU</h3>
+    
+    <div class="menu-item" onclick="contactDeveloper('wa')">
+      <i class="fab fa-whatsapp"></i> WhatsApp Developer
+    </div>
+    
+    <div class="menu-item" onclick="contactDeveloper('email')">
+      <i class="fas fa-envelope"></i> Email Developer
+    </div>
+    
+    <div class="menu-item" onclick="showAttackHistory()">
+      <i class="fas fa-history"></i> Riwayat Serangan
+    </div>
+    
+    <div class="menu-item" onclick="showIPCheck()">
+      <i class="fas fa-globe"></i> Cek IP
+    </div>
+    
+    <div class="menu-item" onclick="showDDoSAttack()">
+      <i class="fas fa-bolt"></i> DDoS Attack
+    </div>
+    
+    <div class="menu-item" onclick="showAIAssistant()">
+      <i class="fas fa-robot"></i> AI Assistant
+    </div>
+    
+    <div class="menu-item" onclick="showWifiKiller()">
+      <i class="fas fa-wifi"></i> Wifi Killer
+    </div>
+    
+    <div class="server-toggle">
+      <span>Status Server:</span>
+      <label class="switch">
+        <input type="checkbox" id="serverToggle">
+        <span class="slider" onclick="toggleServerStatus()"></span>
+      </label>
+    </div>
+    
+    <div class="menu-item" onclick="window.open('https://t.me/+qOgLTC0X5DJjMWI9', '_blank')">
+      <i class="fab fa-telegram"></i> Join Grup Telegram
+    </div>
+    
+    <div class="info-text">
+      Aplikasi ini dirancang/dibuat oleh developer GarzZOfficial
+    </div>
+    
+    <div class="info-text">
+      Info update/pembaruan terbaru cek grup telegram
+    </div>
+  </div>
+
+  <div class="floating-controls">
+    <div class="theme-selector" id="themeSelector">
+      <div class="theme-option" style="background: #0a0a12;" onclick="setTheme('cyber')" title="Cyber Theme"></div>
+      <div class="theme-option" style="background: #1a1a2e;" onclick="setTheme('blueDark')" title="Blue Dark"></div>
+      <div class="theme-option" style="background: #2d0c03;" onclick="setTheme('redDark')" title="Red Dark"></div>
+      <div class="theme-option" style="background: #001f3f;" onclick="setTheme('blueMatrix')" title="Blue Matrix"></div>
+      <div class="theme-option" style="background: #0f1923;" onclick="setTheme('greenMatrix')" title="Green Matrix"></div>
+    </div>
+    <div class="floating-btn tooltip" onclick="toggleThemeSelector()">
+      <i class="fas fa-palette"></i>
+      <span class="tooltiptext">Ubah Tema Tampilan</span>
+    </div>
+    <div class="floating-btn tooltip" onclick="scrollToTop()">
+      <i class="fas fa-arrow-up"></i>
+      <span class="tooltiptext">Scroll Ke Atas</span>
+    </div>
+    <div class="floating-btn tooltip" onclick="toggleSound()">
+      <i class="fas fa-volume-up" id="soundIcon"></i>
+      <span class="tooltiptext">Toggle Sound Effects</span>
+    </div>
+  </div>
+
+  <div class="logo-container">
+    <img src="https://files.catbox.moe/jn0p9u.jpg" alt="GarzZOfficial">
+    <h1>GARZ PROJECT</h1>
+    <p class="cyber-text">Advanced Cyber Terminal System</p>
+    <div class="mini-btn-wrapper">
+      <button class="btn-mini" onclick="playPhonk()"><i class="fas fa-music"></i> PHONK</button>
+      <button class="btn-mini" onclick="playSad()"><i class="fas fa-heart"></i> SAD</button>
+      <button class="btn-mini" onclick="toggleAudio()"><i class="fas fa-play" id="playIcon"></i></button>
+      <button class="btn-mini" onclick="nextTrack()"><i class="fas fa-step-forward"></i></button>
+      <button class="btn-mini" onclick="gantiLatar()"><i class="fas fa-image"></i> BG</button>
+    </div>
+  </div>
+
+  <div class="container visible" id="loginBox">
+    <h2><i class="fas fa-terminal"></i> SYSTEM LOGIN</h2>
+    <input type="text" id="username" placeholder="ENTER USERNAME" />
+    <input type="password" id="password" placeholder="ENTER PASSWORD" />
+    <p id="expiredInfo" style="color:#ff4444; margin-top: 10px;"></p>
+    <button onclick="login()"><i class="fas fa-lock-open"></i> ACCESS TERMINAL</button>
+    <div class="status-bar">
+      <a class="support" href="https://wa.me/62895402128077"><i class="fab fa-whatsapp"></i> CONTACT SUPPORT</a>
+      <span id="serverStatus"><span class="cyber-loader"></span> CONNECTING...</span>
+    </div>
+  </div>
+
+  <div class="container hidden" id="panelBox">
+    <div class="user-info">
+      <div class="user-avatar" id="userAvatar"></div>
+      <div>
+        <h2 id="welcomeMsg">WELCOME, AGENT</h2>
+        <div id="expiredDisplay" style="font-size: 11px; color: var(--primary);"></div>
+      </div>
+    </div>
+
+    <div class="terminal-output" id="terminalOutput">
+      <div>> System initialized</div>
+      <div>> Terminal ready</div>
+    </div>
+
+    <input type="text" id="nomorTujuan" placeholder="ENTER TARGET" />
+    
+    <div id="closedNotice" class="closed-notice hidden">
+      <i class="fas fa-exclamation-triangle"></i> SERVER CLOSED<br>PLEASE TRY AGAIN LATER.
+    </div>
+    
+    <div id="bugControls">
+      <button onclick="kirim('Forclose')"><i class=""></i> 🗑 Forclose Delete</button>
+      <button onclick="kirim('DelayInvisible')"><i class=""></i> 👻 Delay Invisible</button>
+    </div>
+    
+    <div class="status-bar">
+      <span id="serverStatusPanel"><span class="cyber-loader"></span> CHECKING SERVER...</span>
+      <a href="javascript:void(0)" onclick="logout()" style="color:#ff4444;"><i class="fas fa-power-off"></i> LOGOUT</a>
+    </div>
+  </div>
+
+  <div class="container hidden" id="successBox">
+    <h2><i class="fas fa-bug"></i> ATTACK IN PROGRESS</h2>
+    <div class="loading-wrapper">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+    
+    <div id="successContent" class="hidden">
+      <div id="resultDetails"></div>
+      <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+    </div>
+  </div>
+
+  <div class="container hidden" id="historyContainer">
+    <h2><i class="fas fa-history"></i> ATTACK HISTORY</h2>
+    <div id="attackHistoryList"></div>
+    <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+  </div>
+
+  <div class="container hidden" id="ipCheckContainer">
+    <h2><i class="fas fa-globe"></i> IP CHECKER</h2>
+    <div class="ip-check-container">
+      <input type="text" id="ipInput" placeholder="Masukkan IP (contoh: 123.45.67.89)" />
+      <button onclick="checkIP()"><i class="fas fa-search"></i> CEK IP</button>
+      <div id="ipResult" class="ip-result"></div>
+    </div>
+    <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+  </div>
+
+  <div class="container hidden" id="ddosContainer">
+    <h2><i class="fas fa-bolt"></i> DDoS ATTACK</h2>
+    <div class="ip-check-container">
+      <input type="text" id="ddosTarget" placeholder="Masukkan Target (contoh: example.com)" />
+      <input type="number" id="ddosPort" placeholder="Port (default: 80)" value="80" />
+      <input type="number" id="ddosThreads" placeholder="Threads (default: 10)" value="10" />
+      <div class="ddos-controls">
+        <button class="ddos-button" onclick="startDDoSAttack()"><i class="fas fa-play"></i> START DDoS</button>
+        <button onclick="stopDDoSAttack()"><i class="fas fa-stop"></i> STOP DDoS</button>
+      </div>
+      <div id="ddosStatus" class="ddos-status">READY</div>
+      <div id="ddosLog" class="ip-result" style="height: 150px; overflow-y: auto;"></div>
+    </div>
+    <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+  </div>
+
+  <div class="container hidden" id="aiAssistantContainer">
+    <h2><i class="fas fa-robot"></i> GARZ AI ASSISTANT</h2>
+    <div class="ai-chat-container" id="aiChat">
+      <div class="ai-message ai-bot">
+        Halo! Saya Garz AI Asisten. Ada yang bisa saya bantu?
+      </div>
+    </div>
+    <div class="ai-input-container">
+      <input type="text" id="aiInput" class="ai-input" placeholder="Ketik pesan Anda di sini..." />
+      <button onclick="sendAIMessage()" class="ai-send"><i class="fas fa-paper-plane"></i></button>
+    </div>
+    <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+  </div>
+
+  <div class="container hidden" id="wifiKillerContainer">
+    <h2><i class="fas fa-wifi"></i> WIFI KILLER</h2>
+    <div class="wifi-killer-container">
+      <p>Fitur ini akan memindai jaringan untuk menemukan perangkat yang terhubung.</p>
+      <button class="wifi-killer-button" onclick="startWifiKiller()"><i class="fas fa-search"></i> SCAN JARINGAN</button>
+      
+      <div id="wifiKillerLoading" class="loading-animation hidden">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+      
+      <div id="wifiKillerResult" class="wifi-killer-result hidden">
+        <!-- Hasil scan akan ditampilkan di sini -->
+      </div>
+    </div>
+    <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+  </div>
+
+  <script>
+    // Data pengguna
+    const users = {
+      "GarzZOfficial": { pass: "2010", expired: "2026-07-22T23:59:59", avatar: "G" },
+      "I": { pass: "1", expired: "2025-07-25T23:59:59", avatar: "I" },
+      "2": { pass: "2", expired: "2025-07-27T23:59:59", avatar: "2" }
+    };
+    
+    let currentUser = null;
+    let serverOnline = false;
+    let hackerColor = "#0ff";
+    let currentTheme = 'cyber';
+    let soundEnabled = true;
+    let attackHistory = [];
+    let ddosActive = false;
+    let ddosThreads = [];
+    
+    // Kelas Garz AI Assistant
+    class GarzAI {
+      constructor() {
+        this.name = "Garz AI Asisten GarzProject";
+        this.responses = {
+          "info": "Saya adalah AI asisten khusus GarzProject. Saya siap membantu Anda!",
+          "time": `Waktu sekarang: ${new Date().toLocaleTimeString('id-ID')}`,
+          "date": `Hari ini: ${new Date().toLocaleDateString('id-ID')}`,
+          "help": "Daftar perintah yang tersedia: info, time, date, help, joke, bug, ddos, ip"
+        };
+      }
+      
+      processCommand(user_input) {
+        user_input = user_input.toLowerCase();
+        
+        if (user_input.includes('halo') || user_input.includes('hai')) {
+          return this.getRandomResponse(["Halo! Ada yang bisa saya bantu?", 
+                                      "Hai! Silakan beri perintah!"]);
+        }
+        
+        else if (user_input.includes('info')) {
+          return this.responses['info'];
+        }
+        
+        else if (user_input.includes('time') || user_input.includes('jam')) {
+          this.responses['time'] = `Waktu sekarang: ${new Date().toLocaleTimeString('id-ID')}`;
+          return this.responses['time'];
+        }
+        
+        else if (user_input.includes('date') || user_input.includes('tanggal')) {
+          this.responses['date'] = `Hari ini: ${new Date().toLocaleDateString('id-ID')}`;
+          return this.responses['date'];
+        }
+        
+        else if (user_input.includes('help') || user_input.includes('bantuan')) {
+          return this.responses['help'];
+        }
+        
+        else if (user_input.includes('joke') || user_input.includes('lucu')) {
+          return this.getRandomResponse([
+            "Kenapa programmer sulit tidur? Karena mereka selalu bug!",
+            "Apa jenis makanan favorit AI? Microchips!",
+            "Kenapa hacker tidak pernah berbohong? Karena mereka selalu crack password!",
+            "Apa yang dikatakan server kepada client? Jangan request aku lagi!"
+          ]);
+        }
+        
+        else if (user_input.includes('bug') || user_input.includes('call')) {
+          return "Untuk menggunakan fitur bug, silakan kembali ke panel utama dan masukkan nomor target.";
+        }
+        
+        else if (user_input.includes('ddos')) {
+          return "Fitur DDoS Attack tersedia di menu. Gunakan dengan bijak dan hanya untuk testing pada sistem Anda sendiri.";
+        }
+        
+        else if (user_input.includes('ip') || user_input.includes('cek ip')) {
+          return "Fitur Cek IP tersedia di menu. Anda dapat mengecek informasi IP address tertentu.";
+        }
+        
+        else if (user_input.includes('wifi') || user_input.includes('killer')) {
+          return "Fitur Wifi Killer tersedia di menu. Gunakan untuk memindai perangkat dalam jaringan.";
+        }
+        
+        else if (user_input.includes('terima kasih') || user_input.includes('thanks')) {
+          return this.getRandomResponse([
+            "Sama-sama! Senang bisa membantu.",
+            "Terima kasih kembali!",
+            "Jika ada yang lain, saya siap membantu!"
+          ]);
+        }
+        
+        else {
+          return "Maaf, saya tidak mengerti perintah tersebut. Ketik 'help' untuk melihat daftar perintah yang tersedia.";
+        }
+      }
+      
+      getRandomResponse(responses) {
+        return responses[Math.floor(Math.random() * responses.length)];
+      }
+    }
+    
+    // Inisialisasi AI
+    const garzAI = new GarzAI();
+    
+    // Fungsi untuk toggle menu
+    function toggleMenu() {
+      const menuToggle = document.getElementById("menuToggle");
+      const sidebarMenu = document.getElementById("sidebarMenu");
+      
+      menuToggle.classList.toggle("active");
+      sidebarMenu.classList.toggle("active");
+    }
+    
+    // Inisialisasi event listener untuk menu toggle
+    document.getElementById("menuToggle").addEventListener("click", toggleMenu);
+    
+    // Fungsi untuk menghubungi developer
+    function contactDeveloper(type) {
+      if (type === 'wa') {
+        window.open('https://wa.me/62895402128077', '_blank');
+        showNotification('Membuka WhatsApp Developer', 'info');
+      } else if (type === 'email') {
+        window.location.href = 'mailto:garzkendala2010@gmail.com';
+        showNotification('Membuka Email Developer', 'info');
+      }
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk toggle status server
+    function toggleServerStatus() {
+      const serverToggle = document.getElementById("serverToggle");
+      serverOnline = !serverOnline;
+      serverToggle.checked = serverOnline;
+      
+      if (serverOnline) {
+        showNotification('Server status: ONLINE', 'success');
+      } else {
+        showNotification('Server status: OFFLINE', 'error');
+      }
+    }
+    
+    // Fungsi untuk menampilkan riwayat serangan
+    function showAttackHistory() {
+      const panelBox = document.getElementById("panelBox");
+      const historyContainer = document.getElementById("historyContainer");
+      const attackHistoryList = document.getElementById("attackHistoryList");
+      
+      panelBox.classList.remove("visible");
+      panelBox.classList.add("hidden");
+      
+      historyContainer.classList.remove("hidden");
+      historyContainer.classList.add("visible");
+      
+      if (attackHistory.length === 0) {
+        attackHistoryList.innerHTML = '<div class="history-item">Tidak ada riwayat serangan</div>';
+      } else {
+        attackHistoryList.innerHTML = '';
+        attackHistory.forEach(item => {
+          const historyItem = document.createElement("div");
+          historyItem.className = `history-item ${item.status === 'success' ? 'history-success' : 'history-failed'}`;
+          historyItem.innerHTML = `
+            <strong>${item.target}</strong> - ${item.mode}<br>
+            <small>${item.date} - ${item.status.toUpperCase()}</small>
+          `;
+          attackHistoryList.appendChild(historyItem);
+        });
+      }
+      
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk menampilkan cek IP
+    function showIPCheck() {
+      const panelBox = document.getElementById("panelBox");
+      const ipCheckContainer = document.getElementById("ipCheckContainer");
+      
+      panelBox.classList.remove("visible");
+      panelBox.classList.add("hidden");
+      
+      ipCheckContainer.classList.remove("hidden");
+      ipCheckContainer.classList.add("visible");
+      
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk menampilkan DDoS Attack
+    function showDDoSAttack() {
+      const panelBox = document.getElementById("panelBox");
+      const ddosContainer = document.getElementById("ddosContainer");
+      
+      panelBox.classList.remove("visible");
+      panelBox.classList.add("hidden");
+      
+      ddosContainer.classList.remove("hidden");
+      ddosContainer.classList.add("visible");
+      
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk menampilkan AI Assistant
+    function showAIAssistant() {
+      const panelBox = document.getElementById("panelBox");
+      const aiAssistantContainer = document.getElementById("aiAssistantContainer");
+      
+      panelBox.classList.remove("visible");
+      panelBox.classList.add("hidden");
+      
+      aiAssistantContainer.classList.remove("hidden");
+      aiAssistantContainer.classList.add("visible");
+      
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk menampilkan Wifi Killer
+    function showWifiKiller() {
+      const panelBox = document.getElementById("panelBox");
+      const wifiKillerContainer = document.getElementById("wifiKillerContainer");
+      
+      panelBox.classList.remove("visible");
+      panelBox.classList.add("hidden");
+      
+      wifiKillerContainer.classList.remove("hidden");
+      wifiKillerContainer.classList.add("visible");
+      
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk memulai Wifi Killer
+    function startWifiKiller() {
+      const loadingElement = document.getElementById("wifiKillerLoading");
+      const resultElement = document.getElementById("wifiKillerResult");
+      
+      // Tampilkan loading animation
+      loadingElement.classList.remove("hidden");
+      resultElement.classList.add("hidden");
+      
+      // Simulasi proses scanning (dalam browser tidak bisa melakukan scanning jaringan sebenarnya)
+      setTimeout(() => {
+        loadingElement.classList.add("hidden");
+        resultElement.classList.remove("hidden");
+        
+        // Generate random IP addresses untuk simulasi
+        const baseIP = "192.168.1.";
+        const devices = [];
+        
+        // Generate 5-15 random devices
+        const deviceCount = Math.floor(Math.random() * 11) + 5;
+        for (let i = 0; i < deviceCount; i++) {
+          const ip = baseIP + Math.floor(Math.random() * 255);
+          devices.push(ip);
+        }
+        
+        // Tampilkan hasil
+        resultElement.innerHTML = "<strong>Perangkat yang ditemukan:</strong><br>";
+        devices.forEach(ip => {
+          resultElement.innerHTML += `[+] ${ip}<br>`;
+        });
+        
+        resultElement.innerHTML += `<br><strong>Total: ${deviceCount} perangkat ditemukan</strong>`;
+        
+        // Tambahkan ke terminal output
+        addTerminalOutput(`Wifi Killer: Found ${deviceCount} devices on network`);
+        
+        showNotification("Scan jaringan selesai!", "success");
+      }, 3000);
+    }
+    
+    // Fungsi untuk mengirim pesan ke AI
+    function sendAIMessage() {
+      const aiInput = document.getElementById("aiInput");
+      const aiChat = document.getElementById("aiChat");
+      
+      if (!aiInput.value.trim()) return;
+      
+      // Tambahkan pesan user ke chat
+      const userMessage = document.createElement("div");
+      userMessage.className = "ai-message ai-user";
+      userMessage.textContent = aiInput.value;
+      aiChat.appendChild(userMessage);
+      
+      // Proses pesan dengan AI
+      const response = garzAI.processCommand(aiInput.value);
+      
+      // Tambahkan pesan AI ke chat (dengan delay untuk efek natural)
+      setTimeout(() => {
+        const aiMessage = document.createElement("div");
+        aiMessage.className = "ai-message ai-bot";
+        aiMessage.textContent = response;
+        aiChat.appendChild(aiMessage);
+        aiChat.scrollTop = aiChat.scrollHeight;
+      }, 500);
+      
+      // Clear input
+      aiInput.value = "";
+    }
+    
+    // Event listener untuk tombol Enter pada input AI
+    document.getElementById("aiInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        sendAIMessage();
+      }
+    });
+    
+    // Fungsi untuk cek IP
+    async function checkIP() {
+      const ipInput = document.getElementById("ipInput").value.trim();
+      const ipResult = document.getElementById("ipResult");
+      
+      if (!ipInput) {
+        ipResult.innerHTML = "Masukkan IP nya!\nContoh: 123.45.67.89";
+        return;
+      }
+      
+      ipResult.innerHTML = "Memeriksa IP...";
+      
+      try {
+        const res = await fetch(`https://ipwhois.app/json/${ipInput}`);
+        const data = await res.json();
+        
+        if (data.success === false || !data.ip) {
+          ipResult.innerHTML = "IP tidak valid atau tidak ditemukan.";
+          return;
+        }
+
+        const info = `
+IP: ${data.ip}
+ISP: ${data.isp}
+ASN: ${data.asn}
+Provider: ${data.org}
+Negara: ${data.country} (${data.country_code})
+Region: ${data.region}
+Kota: ${data.city}
+Lokasi: ${data.latitude}, ${data.longitude}
+Timezone: ${data.timezone}
+Reverse DNS: ${data.reverse || '-'}
+        `.trim();
+        
+        ipResult.innerHTML = info;
+        
+        // Tambahkan ke terminal output
+        addTerminalOutput(`IP Check: ${data.ip} - ${data.country}`);
+        
+      } catch (e) {
+        console.log(e);
+        ipResult.innerHTML = "Gagal mengambil data IP.";
+      }
+    }
+    
+    // Fungsi untuk DDoS Attack
+    function startDDoSAttack() {
+      const target = document.getElementById("ddosTarget").value.trim();
+      const port = document.getElementById("ddosPort").value || 80;
+      const threads = document.getElementById("ddosThreads").value || 10;
+      const ddosStatus = document.getElementById("ddosStatus");
+      const ddosLog = document.getElementById("ddosLog");
+      
+      if (!target) {
+        showNotification("Masukkan target terlebih dahulu!", "error");
+        return;
+      }
+      
+      ddosActive = true;
+      ddosStatus.innerText = "ATTACKING...";
+      ddosStatus.style.color = "#ff3a3a";
+      ddosLog.innerHTML = "";
+      
+      // Simulasi DDoS Attack (hanya untuk demonstrasi)
+      // Dalam implementasi nyata, ini akan membutuhkan teknologi yang lebih canggih
+      for (let i = 0; i < threads; i++) {
+        const thread = setInterval(() => {
+          if (!ddosActive) {
+            clearInterval(thread);
+            return;
+          }
+          
+          // Simulasi pengiriman paket
+          const now = new Date().toLocaleTimeString();
+          ddosLog.innerHTML += `[${now}] Thread ${i+1}: Mengirim paket ke ${target}:${port}<br>`;
+          ddosLog.scrollTop = ddosLog.scrollHeight;
+          
+          // Tambahkan ke terminal output
+          addTerminalOutput(`DDoS: Mengirim paket ke ${target}:${port}`);
+        }, 100); // Kirim setiap 100ms
+      
+        ddosThreads.push(thread);
+      }
+      
+      showNotification("DDoS Attack dimulai!", "info");
+    }
+    
+    // Fungsi untuk menghentikan DDoS Attack
+    function stopDDoSAttack() {
+      ddosActive = false;
+      ddosThreads.forEach(thread => clearInterval(thread));
+      ddosThreads = [];
+      
+      const ddosStatus = document.getElementById("ddosStatus");
+      ddosStatus.innerText = "STOPPED";
+      ddosStatus.style.color = "#00ff8c";
+      
+      showNotification("DDoS Attack dihentikan!", "info");
+    }
+    
+    // Fungsi untuk menambahkan riwayat serangan
+    function addToAttackHistory(target, mode, status) {
+      const now = new Date();
+      const dateString = now.toLocaleString('id-ID');
+      
+      attackHistory.unshift({
+        target,
+        mode,
+        status,
+        date: dateString
+      });
+      
+      // Simpan ke localStorage
+      localStorage.setItem('attackHistory', JSON.stringify(attackHistory));
+    }
+    
+    // Fungsi notifikasi
+    function showNotification(message, type = "info") {
+      const notification = document.getElementById("notification");
+      const messageEl = document.getElementById("notification-message");
+      
+      messageEl.innerHTML = message;
+      notification.className = "notification " + type;
+      notification.classList.add("show");
+      
+      // Play sound if enabled
+      if (soundEnabled) {
+        const audio = new Audio(type === "error" ? 
+          "https://assets.mixkit.co/sfx/preview/mixkit-alarm-tone-996.mp3" :
+          "https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-3021.mp3");
+        audio.volume = 0.3;
+        audio.play();
+      }
+      
+      setTimeout(() => {
+        notification.classList.remove("show");
+      }, 3000);
+    }
+    
+    // Fungsi login
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const info = document.getElementById("expiredInfo");
+      const userData = users[user];
+
+      if (userData && userData.pass === pass) {
+        const now = new Date();
+        const expDate = new Date(userData.expired);
+        if (now > expDate) {
+          info.innerText = "❌ ACCOUNT EXPIRED!";
+          showNotification("Account has expired!", "error");
+          return;
+        }
+        
+        currentUser = user;
+        document.getElementById("userAvatar").innerText = userData.avatar || user.charAt(0);
+        
+        document.getElementById("loginBox").classList.remove("visible");
+        document.getElementById("loginBox").classList.add("hidden");
+        
+        document.getElementById("panelBox").classList.remove("hidden");
+        document.getElementById("panelBox").classList.add("visible");
+        
+        document.getElementById("welcomeMsg").innerText = `WELCOME, ${user.toUpperCase()}!`;
+        document.getElementById("expiredDisplay").innerText = `EXPIRATION: ${userData.expired.split("T")[0]}`;
+        
+        // Muat riwayat dari localStorage
+        const savedHistory = localStorage.getItem('attackHistory');
+        if (savedHistory) {
+          attackHistory = JSON.parse(savedHistory);
+        }
+        
+        // Add to terminal output
+        addTerminalOutput(`> User ${user} authenticated`);
+        addTerminalOutput(`> Access level: authorized`);
+        addTerminalOutput(`> Terminal ready for commands`);
+        
+        showNotification("Authentication successful!", "success");
+        
+      } else {
+        info.innerText = "❌ INVALID CREDENTIALS!";
+        showNotification("Invalid username or password!", "error");
+      }
+    }     
+
+    // Fungsi logout
+    function logout() {
+      currentUser = null;
+      
+      document.getElementById("panelBox").classList.remove("visible");
+      document.getElementById("panelBox").classList.add("hidden");
+      
+      document.getElementById("successBox").classList.remove("visible");
+      document.getElementById("successBox").classList.add("hidden");
+      
+      document.getElementById("historyContainer").classList.remove("visible");
+      document.getElementById("historyContainer").classList.add("hidden");
+      
+      document.getElementById("ipCheckContainer").classList.remove("visible");
+      document.getElementById("ipCheckContainer").classList.add("hidden");
+      
+      document.getElementById("ddosContainer").classList.remove("visible");
+      document.getElementById("ddosContainer").classList.add("hidden");
+      
+      document.getElementById("aiAssistantContainer").classList.remove("visible");
+      document.getElementById("aiAssistantContainer").classList.add("hidden");
+      
+      document.getElementById("wifiKillerContainer").classList.remove("visible");
+      document.getElementById("wifiKillerContainer").classList.add("hidden");
+      
+      // Hentikan DDoS attack jika sedang berjalan
+      if (ddosActive) {
+        stopDDoSAttack();
+      }
+      
+      document.getElementById("loginBox").classList.remove("hidden");
+      document.getElementById("loginBox").classList.add("visible");
+      
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      
+      // Tutup menu jika terbuka
+      const menuToggle = document.getElementById("menuToggle");
+      const sidebarMenu = document.getElementById("sidebarMenu");
+      menuToggle.classList.remove("active");
+      sidebarMenu.classList.remove("active");
+      
+      // Add to terminal output
+      addTerminalOutput(`> Session terminated`);
+      addTerminalOutput(`> System locked`);
+      
+      showNotification("Session terminated", "info");
+    }
+
+    // Fungsi kembali ke panel
+    function backToPanel() {
+      document.getElementById("successBox").classList.remove("visible");
+      document.getElementById("successBox").classList.add("hidden");
+      
+      document.getElementById("historyContainer").classList.remove("visible");
+      document.getElementById("historyContainer").classList.add("hidden");
+      
+      document.getElementById("ipCheckContainer").classList.remove("visible");
+      document.getElementById("ipCheckContainer").classList.add("hidden");
+      
+      document.getElementById("ddosContainer").classList.remove("visible");
+      document.getElementById("ddosContainer").classList.add("hidden");
+      
+      document.getElementById("aiAssistantContainer").classList.remove("visible");
+      document.getElementById("aiAssistantContainer").classList.add("hidden");
+      
+      document.getElementById("wifiKillerContainer").classList.remove("visible");
+      document.getElementById("wifiKillerContainer").classList.add("hidden");
+      
+      // Hentikan DDoS attack jika sedang berjalan
+      if (ddosActive) {
+        stopDDoSAttack();
+      }
+      
+      document.getElementById("panelBox").classList.remove("hidden");
+      document.getElementById("panelBox").classList.add("visible");
+    }
+
+    // Add text to terminal
+    function addTerminalOutput(text) {
+      const terminal = document.getElementById("terminalOutput");
+      const newEntry = document.createElement("div");
+      newEntry.textContent = "> " + text;
+      terminal.appendChild(newEntry);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    // Cek jam aktif
+    function isJamAktif() {
+      const hour = new Date().getHours();
+      return hour >= 9 && hour < 24;
+    }
+    
+    // Update status jam
+    function updateJamStatus() {
+      const open = isJamAktif();
+      document.getElementById("closedNotice").classList.toggle("hidden", open);
+      document.getElementById("bugControls").style.display = open ? "block" : "none";
+    }
+    
+    // Cek status server
+    function checkServerStatus() {
+      fetch("http://maxi-panel.djvuu.web:3000/api/ping")
+        .then(res => {
+          serverOnline = res.ok;
+          const statusText = res.ok ? "SERVER: ONLINE 🟢" : "SERVER: OFFLINE 🔴";
+          const statusColor = res.ok ? "#00ff8c" : "#ff3a3a";      
+          
+          document.getElementById("serverStatus").innerHTML = res.ok ? 
+            "<i class='fas fa-check-circle'></i> " + statusText : 
+            "<i class='fas fa-times-circle'></i> " + statusText;
+          
+          document.getElementById("serverStatus").style.color = statusColor;
+          
+          document.getElementById("serverStatusPanel").innerHTML = res.ok ? 
+            "<i class='fas fa-check-circle'></i> " + statusText : 
+            "<i class='fas fa-times-circle'></i> " + statusText;
+          
+          document.getElementById("serverStatusPanel").style.color = statusColor;
+          
+          document.getElementById("serverToggle").checked = serverOnline;
+          
+          document.getElementById("bugControls").style.display = res.ok ? "block" : "none";
+          
+          const notice = document.getElementById("closedNotice");
+          if (!res.ok) {
+            notice.classList.remove("hidden");
+            notice.innerHTML = "<i class='fas fa-exclamation-triangle'></i> SERVER OFFLINE<br>PLEASE TRY AGAIN LATER.";
+          } else {
+            updateJamStatus();
+          }
+          
+          // Add to terminal output
+          addTerminalOutput(`Server status: ${res.ok ? "online" : "offline"}`);
+        })
+        .catch(() => {
+          serverOnline = false;
+          document.getElementById("serverStatus").innerHTML = "<i class='fas fa-times-circle'></i> SERVER: OFFLINE 🔴";
+          document.getElementById("serverStatus").style.color = "#ff3a3a";
+          document.getElementById("serverStatusPanel").innerHTML = "<i class='fas fa-times-circle'></i> SERVER: OFFLINE 🔴";
+          document.getElementById("serverStatusPanel").style.color = "#ff3a3a";
+          document.getElementById("serverToggle").checked = false;
+          document.getElementById("bugControls").style.display = "none";
+          
+          const notice = document.getElementById("closedNotice");
+          notice.classList.remove("hidden");
+          notice.innerHTML = "<i class='fas fa-exclamation-triangle'></i> SERVER OFFLINE<br>PLEASE TRY AGAIN LATER.";
+          
+          // Add to terminal output
+          addTerminalOutput("Server connection failed");
+        });
+    }
+    
+    // Fungsi kirim
+    function kirim(mode) {
+      const target = document.getElementById("nomorTujuan").value.trim();
+      if (!target) {
+        showNotification("Please enter a target first!", "warning");
+        return;
+      }
+      
+      if (!serverOnline) {
+        showNotification("Server is currently offline!", "error");
+        return;
+      }
+      
+      if (!isJamAktif()) {
+        showNotification("Server is only accessible from 09:00 to 24:00!", "warning");
+        return;
+      }
+      
+      // Add to terminal output
+      addTerminalOutput(`Initiating attack: ${mode} on target: ${target}`);
+      
+      fetch(`http://maxi-panel.djvuu.web:3000/api/limit?user=${currentUser}`)
+        .then(res => res.json())
+        .then(data => {
+          if (!data.allowed) {
+            document.getElementById("panelBox").classList.remove("visible");
+            document.getElementById("panelBox").classList.add("hidden");
+            
+            document.getElementById("successBox").classList.remove("hidden");
+            document.getElementById("successBox").classList.add("visible");
+
+            const result = document.getElementById("resultDetails");
+            const now = new Date().toLocaleString("id-ID");
+            result.innerHTML = `
+              <div style="color:#ffffff;">
+                <b>📊 STATUS :</b> FAILED<br>
+                <b>📅 DATE :</b> ${now}<br>
+                <b>📥 USER :</b> ${currentUser}<br>
+                <b>📝 DETAILS :</b> DAILY LIMIT REACHED<br>
+              </div>`;
+            
+            document.getElementById("successContent").classList.remove("hidden");
+            
+            // Tambahkan ke riwayat
+            addToAttackHistory(target, mode, "failed");
+            
+            // Add to terminal output
+            addTerminalOutput("Attack failed: Daily limit reached");
+            
+            showNotification("Daily limit reached!", "error");
+            return;
+          }
+          
+          document.getElementById("panelBox").classList.remove("visible");
+          document.getElementById("panelBox").classList.add("hidden");
+          
+          document.getElementById("successBox").classList.remove("hidden");
+          document.getElementById("successBox").classList.add("visible");
+          
+          const progress = document.getElementById("progressBar");
+          const result = document.getElementById("successContent");
+          result.classList.add("hidden");
+          
+          let percent = 0;
+          const interval = setInterval(() => {
+            percent += 1;
+            progress.style.width = percent + "%";
+            
+            if (percent >= 100) {
+              clearInterval(interval);
+
+              fetch("http://maxi-panel.djvuu.web:3000/api/bug", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ target, mode, user: currentUser })
+              })
+                .then(res => res.json())
+                .then(data => {
+                  const now = new Date().toLocaleString("id-ID");
+                  const resultHTML = `
+                    <b>📊 STATUS :</b> ${data.status === "success" ? "SUCCESS 🟢" : "FAILED 🔴"}<br> 
+                    <b>🎯 TARGET :</b> ${data.target}<br> 
+                    <b>📅 DATE :</b> ${now}<br> 
+                    <b>📥 USER :</b> ${data.user}<br>
+                    <b>📊 LIMIT :</b> ${data.count}/${data.max}<br>
+                    <b>🔧 MODE :</b> ${mode}<br>`;
+                  
+                  document.getElementById("resultDetails").innerHTML = resultHTML;
+                  document.getElementById("successContent").classList.remove("hidden");
+                  
+                  // Tambahkan ke riwayat
+                  addToAttackHistory(target, mode, data.status);
+                  
+                  // Add to terminal output
+                  addTerminalOutput(`Attack ${data.status === "success" ? "succeeded" : "failed"}`);
+                  addTerminalOutput(`Remaining daily limit: ${data.count}/${data.max}`);
+                  
+                  if (data.status === "success") {
+                    showNotification("Attack successfully executed!", "success");
+                  } else {
+                    showNotification("Attack failed!", "error");
+                  }
+                })
+                .catch(() => {
+                  document.getElementById("resultDetails").innerHTML = "❌ ERROR EXECUTING REQUEST";
+                  document.getElementById("successContent").classList.remove("hidden");
+                  
+                  // Tambahkan ke riwayat
+                  addToAttackHistory(target, mode, "error");
+                  
+                  // Add to terminal output
+                  addTerminalOutput("Attack failed: Server error");
+                  
+                  showNotification("Error executing request!", "error");
+                });
+            }
+          }, 30);
+        })
+        .catch(() => {
+          showNotification("Failed to check limit!", "error");
+        });
+    }
+    
+    // Playlist musik
+    const phonkPlaylist = [
+      "https://files.catbox.moe/6019hy.mp3",
+      "https://files.catbox.moe/e5iukb.mp4",
+      "https://files.catbox.moe/i5eank.mp3",
+      "https://files.catbox.moe/bp0m5o.m4a",
+      "https://files.catbox.moe/rooj3b.mp3",
+      "https://files.catbox.moe/1x9ear.mp3",
+      "https://files.catbox.moe/8b0yqe.mp3",
+      "https://files.catbox.moe/rn9t1e.mp3",
+      "https://files.catbox.moe/ri8ldr.mp3",
+      "https://files.catbox.moe/ecxk53.mp3",
+      "https://files.catbox.moe/xqfz1f.mp4",
+      "https://files.catbox.moe/tw7vdb.mpeg"
+    ];
+
+    const sadPlaylist = [
+      "https://files.catbox.moe/5s0497.mp3",
+      "https://files.catbox.moe/tyq7gm.mp3",
+      "https://files.catbox.moe/kdoeno.mp3",
+      "https://files.catbox.moe/syrp3c.mp4",
+      "https://files.catbox.moe/k0zfxh.mp4",
+      "https://files.catbox.moe/sbeckl.mp3",
+      "https://files.catbox.moe/t43axq.mp3",
+      "https://files.catbox.moe/wmrz4c.mp4",
+      "https://files.catbox.moe/t7e0uj.mp3",
+      "https://files.catbox.moe/5so1ow.mp4",
+      "https://files.catbox.moe/577un5.mp3",
+      "https://files.catbox.moe/ihyu3j.mp3",
+      "https://files.catbox.moe/l0sv56.mp3",
+      "https://files.catbox.moe/p3ujes.mp3",
+      "https://files.catbox.moe/zqg9ba.mp3",
+      "https://files.catbox.moe/yoebl2.mp3"
+    ];
+
+    let currentPlaylist = phonkPlaylist;
+    let currentTrack = 0;
+    const audio = document.getElementById("player");
+    let isPlaying = false;
+
+    function playCurrentTrack() {
+      audio.src = currentPlaylist[currentTrack];
+      audio.load();
+      audio.play()
+        .then(() => {
+          isPlaying = true;
+          updatePlayButton();
+        })
+        .catch(err => {
+          console.warn("Autoplay failed, waiting for user interaction:", err);
+          isPlaying = false;
+          updatePlayButton();
+        });
+    }
+
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play()
+          .then(() => {
+            isPlaying = true;
+            updatePlayButton();
+            showNotification("Music started", "info");
+          })
+          .catch(err => {
+            console.warn("Failed to play music:", err);
+            showNotification("Click to play music", "info");
+          });
+      } else {
+        audio.pause();
+        isPlaying = false;
+        updatePlayButton();
+        showNotification("Music stopped", "info");
+      }
+    }
+
+    function updatePlayButton() {
+      const playIcon = document.getElementById("playIcon");
+      if (playIcon) {
+        playIcon.className = isPlaying ? "fas fa-pause" : "fas fa-play";
+      }
+    }
+
+    function nextTrack() {
+      currentTrack = (currentTrack + 1) % currentPlaylist.length;
+      playCurrentTrack();
+      showNotification("Playing next track", "info");
+    }
+
+    function playPhonk() {
+      currentPlaylist = phonkPlaylist;
+      currentTrack = 0;
+      playCurrentTrack();
+      showNotification("Playing Phonk playlist", "info");
+    }
+
+    function playSad() {
+      currentPlaylist = sadPlaylist;
+      currentTrack = 0;
+      playCurrentTrack();
+      showNotification("Playing Sad playlist", "info");
+    }
+
+    audio.addEventListener("ended", nextTrack);
+    
+    // Efek hacker rain
+    const canvas = document.getElementById("hackerRain");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz$#@%&!?*";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({ length: columns }).fill(1);
+
+    function draw() {
+      ctx.fillStyle = "rgba(10, 10, 18, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = hackerColor;
+      ctx.font = `${fontSize}px 'Orbitron', monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height || Math.random() > 0.95) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 33);
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+    
+    // Ganti latar belakang
+    const latarList = ["hacker", "hitam", "putih", "hackerMerah"];
+    let latarIndex = 0;
+
+    function gantiLatar() {
+      latarIndex = (latarIndex + 1) % latarList.length;
+      setLatar(latarList[latarIndex]);
+      showNotification(`Background: ${latarList[latarIndex]}`, "info");
+    }
+
+    function setLatar(mode) {
+      const canvas = document.getElementById("hackerRain");
+      
+      if (mode === "hacker") {
+        canvas.style.display = "block";
+        hackerColor = "#0ff";
+      } else if (mode === "hackerMerah") {
+        canvas.style.display = "block";
+        hackerColor = "red";
+      } else if (mode === "hitam") {
+        canvas.style.display = "none";
+      } else if (mode === "putih") {
+        canvas.style.display = "none";
+      }
+    }
+    
+    // Fungsi tema
+    function toggleThemeSelector() {
+      const themeSelector = document.getElementById("themeSelector");
+      themeSelector.classList.toggle("show");
+    }
+    
+    function setTheme(theme) {
+      currentTheme = theme;
+      const root = document.documentElement;
+      
+      if (theme === 'cyber') {
+        root.style.setProperty('--primary', '#0ff');
+        root.style.setProperty('--secondary', '#f0f');
+        root.style.setProperty('--accent', '#ff0');
+        root.style.setProperty('--dark', '#0a0a12');
+        root.style.setProperty('--darker', '#050508');
+      } else if (theme === 'blueDark') {
+        root.style.setProperty('--primary', '#4f8ff0');
+        root.style.setProperty('--secondary', '#235ec3');
+        root.style.setProperty('--accent', '#00c6ff');
+        root.style.setProperty('--dark', '#1a1a2e');
+        root.style.setProperty('--darker', '#0f0f1a');
+      } else if (theme === 'redDark') {
+        root.style.setProperty('--primary', '#ff3a3a');
+        root.style.setProperty('--secondary', '#c23b3b');
+        root.style.setProperty('--accent', '#ff7b7b');
+        root.style.setProperty('--dark', '#2d0c03');
+        root.style.setProperty('--darker', '#1a0702');
+      } else if (theme === 'blueMatrix') {
+        root.style.setProperty('--primary', '#00ff41');
+        root.style.setProperty('--secondary', '#00c734');
+        root.style.setProperty('--accent', '#00ff8c');
+        root.style.setProperty('--dark', '#001f3f');
+        root.style.setProperty('--darker', '#001225');
+      } else if (theme === 'greenMatrix') {
+        root.style.setProperty('--primary', '#00ff8c');
+        root.style.setProperty('--secondary', '#00c46b');
+        root.style.setProperty('--accent', '#00ff41');
+        root.style.setProperty('--dark', '#0f1923');
+        root.style.setProperty('--darker', '#080e14');
+      }
+      
+      hackerColor = getComputedStyle(root).getPropertyValue('--primary').trim();
+      showNotification(`Theme: ${theme}`, "info");
+      toggleThemeSelector();
+    }
+    
+    // Toggle sound effects
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const soundIcon = document.getElementById("soundIcon");
+      soundIcon.className = soundEnabled ? "fas fa-volume-up" : "fas fa-volume-mute";
+      showNotification(`Sound effects ${soundEnabled ? "enabled" : "disabled"}`, "info");
+    }
+    
+    // Scroll to top
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // Inisialisasi
+    window.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        playCurrentTrack();
+        checkServerStatus();
+        updateJamStatus();
+        
+        // Add to terminal output
+        addTerminalOutput("System initialized");
+        addTerminalOutput("Terminal ready");
+        
+        // Cek status server setiap 30 detik
+        setInterval(checkServerStatus, 30000);
+        setInterval(updateJamStatus, 60000);
+      }, 500);
     });
   </script>
- </body>
+</body>
 </html>
