@@ -2,1215 +2,1944 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>XYLENT EMPIRE APPS</title>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-  <!-- Bootstrap -->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GarzProject | Advanced Cyber Terminal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
+      margin: 0; padding: 0;
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', 'Orbitron', sans-serif;
     }
-/* General Reset */
-body {
-      background: black;
-      font-family: 'Poppins', sans-serif;
-      color: #b19cd9;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-      padding-left: 80px; /* Memberi ruang untuk sidebar */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+    :root {
+      --primary: #0ff;
+      --secondary: #f0f;
+      --accent: #ff0;
+      --dark: #0a0a12;
+      --darker: #050508;
     }
 
-#particles {
+    body {
+      background-color: var(--dark);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .cyber-bg {
       position: fixed;
       top: 0;
       left: 0;
-      height: 100%;
       width: 100%;
-      z-index: 0;
+      height: 100%;
+      background: linear-gradient(45deg, var(--darker) 0%, var(--dark) 100%);
+      z-index: -3;
     }
-section {
-  position: relative;
-  z-index: 1; /* pastikan teks/isi ada di atas partikel */
-  padding: 80px 20px;
-  color: white;
-}    
 
-/* SIDEBAR STYLING */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 80px;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0;
-  transition: width 0.3s ease;
-  overflow-x: hidden;
-}
-
-.sidebar:hover {
-  width: 220px;
-}
-
-.sidebar-brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 40px;
-  width: 100%;
-}
-
-.sidebar .icon {
-  margin-bottom: 10px;
-}
-
-.sidebar .icon i {
-  font-size: 36px;
-  color: #ff69b4;
-  text-shadow: 
-    0 0 10px rgba(255, 21, 0, 0.9),
-    0 0 20px rgba(255, 21, 0, 0.7),
-    0 0 40px rgba(255, 21, 0, 0.5),
-    0 0 80px rgba(255, 21, 0, 0.3);
-}
-
-.sidebar .brand {
-  font-family: 'Playfair Display', serif;
-  color: #ffffff;
-  text-shadow: 0 0 8px #ffffff;
-  font-size: 18px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.sidebar .brand span {
-  color: #ff69b4;
-  text-shadow: 0 0 8px #ff69b4;
-}
-
-.sidebar:hover .brand {
-  opacity: 1;
-}
-
-.sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 15px;
-}
-
-.sidebar-item {
-  display: flex;
-  align-items: center;
-  color: #fff;
-  text-decoration: none;
-  padding: 12px 20px;
-  width: 100%;
-  transition: background 0.3s ease;
-  white-space: nowrap;
-}
-
-.sidebar-item i {
-  margin-right: 15px;
-  font-size: 20px;
-  min-width: 24px;
-  text-align: center;
-}
-
-.sidebar-item span {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.sidebar:hover .sidebar-item span {
-  opacity: 1;
-}
-
-.sidebar-item:hover {
-  background: rgba(255, 105, 180, 0.2);
-  color: #e63946;
-}
-
-.sidebar-toggle {
-  display: none;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 1001;
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: white;
-  font-size: 24px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  body {
-    padding-left: 0;
-  }
-  
-  .sidebar {
-    width: 0;
-    backdrop-filter: none;
-  }
-  
-  .sidebar.active {
-    width: 220px;
-    backdrop-filter: blur(10px);
-  }
-  
-  .sidebar.active .brand,
-  .sidebar.active .sidebar-item span {
-    opacity: 1;
-  }
-  
-  .sidebar-toggle {
-    display: block;
-  }
-  
-  .sidebar .brand {
-    display: none;
-  }
-  
-  .sidebar.active .brand {
-    display: block;
-  }
-}
-
-/* Hapus navbar lama */
-.navbar {
-  display: none;
-}
-
-/* Welcome Section */
-.welcome {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  flex-direction: column;
-  color: white;
-  position: relative;
-  z-index: 1;
-}
-
-.welcome h1 {
-  font-size: 48px;    
-  font-weight: bold;     
-  margin-top: 90px;   
-  line-height: 1.2;      
-}
-
-.welcome .cursor {
-  display: inline-block;
-  width: 10px;
-  height: 40px;
-  background-color: white;
-  margin-left: 3px;
-  animation: blink 0.7s infinite;
-}
-
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-
-#subtext {
-  font-size: 18px;
-  opacity: 0;
-  margin-top: 10px;
-  transition: opacity 1s ease;
-}
-
-/* Glow effect after typing */
-.glow {
-  color: #fff;
-  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4, 0 0 30px #ff1493;
-  animation: pop 0.6s ease forwards;
-}
-
-@keyframes pop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-/* About Section */
-#about {
-  padding: 60px 20px;
-  color: white;
-  max-width: 1100px;
-  margin: auto;
-}
-
-#about .container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-
-  /* blur dipindahin ke container */
-  background: rgba(255, 105, 180, 0.04);
-  border: 1px solid rgba(255, 105, 180, 0.1);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  box-shadow: 0 0 25px rgba(255, 105, 180, 0.15);
-  padding: 40px;
-}
-
-  #about h2 {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #ff69b4;
-    margin-bottom: 1rem;
-  }
-
-  #about p {
-    color: #d1d1d1;
-    margin-bottom: 1rem;
-  }
-
-  .about-features div {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 0.75rem 1rem;
-    border-radius: 12px;
-    transition: transform 0.2s ease, background 0.2s ease;
-  }
-
-  .about-features div i {
-    color: #ff69b4;
-    font-size: 1.2rem;
-  }
-
-  .about-features div:hover {
-  background: rgba(255, 105, 180, 0.15);
-  transform: translateX(5px);
-}
-
-  /* Responsive layout untuk layar besar */
-  @media (min-width: 768px) {
-    #about .container {
-      flex-direction: row; /* sejajar kiri-kanan */
-      align-items: flex-start;
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+      z-index: -2;
     }
-    .about-text {
+
+    .cyber-pulse {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, transparent 0%, var(--darker) 80%);
+      opacity: 0.5;
+      z-index: -1;
+      animation: pulse 10s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.7; }
+    }
+
+    #hackerRain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .container {
+      background: rgba(10, 10, 18, 0.8);
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      margin: 20px auto;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .visible {
+      display: block;
+    }
+
+    h2 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px var(--primary);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--primary);
+      border-radius: 4px;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      border: none;
+      border-radius: 4px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Orbitron', sans-serif;
+      position: relative;
+      z-index: 20;
+    }
+
+    button:hover {
+      box-shadow: 0 0 15px var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      font-size: 12px;
+    }
+
+    .support {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .cyber-loader {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 1s linear infinite;
+      margin-right: 5px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .logo-container {
+      text-align: center;
+      margin: 30px 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-container img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 20px var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .logo-container h1 {
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      margin-bottom: 5px;
+      text-shadow: 0 0 10px var(--primary);
+    }
+
+    .cyber-text {
+      color: var(--primary);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .mini-btn-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn-mini {
+      width: auto;
+      padding: 8px 12px;
+      font-size: 12px;
+      background: rgba(0, 255, 255, 0.2);
+      color: var(--primary);
+      position: relative;
+      z-index: 20;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 20px;
+      margin-right: 15px;
+    }
+
+    .loading-wrapper {
+      width: 100%;
+      height: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      background: rgba(10, 10, 18, 0.9);
+      border-left: 4px solid var(--primary);
+      border-radius: 4px;
+      color: #fff;
+      transform: translateX(150%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      max-width: 300px;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification.success {
+      border-left-color: #00ff8c;
+    }
+
+    .notification.error {
+      border-left-color: #ff3a3a;
+    }
+
+    .notification.warning {
+      border-left-color: #ffcc00;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 30px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--primary);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    .sidebar-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background: rgba(10, 10, 18, 0.95);
+      border-left: 1px solid var(--primary);
+      padding: 60px 20px 20px;
+      z-index: 1000;
+      transition: right 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .sidebar-menu.active {
+      right: 0;
+    }
+
+    .sidebar-menu h3 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+      border-bottom: 1px solid var(--primary);
+      padding-bottom: 10px;
+    }
+
+    .menu-item {
+      padding: 12px 15px;
+      margin: 8px 0;
+      background: rgba(0, 255, 255, 0.1);
+      border-left: 3px solid var(--primary);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 20;
+    }
+
+    .menu-item:hover {
+      background: rgba(0, 255, 255, 0.2);
+      transform: translateX(5px);
+    }
+
+    .menu-item i {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+
+    .floating-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 999;
+    }
+
+    .floating-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(10, 10, 18, 0.8);
+      border: 1px solid var(--primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+      position: relative;
+      z-index: 20;
+    }
+
+    .floating-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--primary);
+    }
+
+    .tooltip {
+      position: relative;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: rgba(10, 10, 18, 0.9);
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      right: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 12px;
+      border: 1px solid var(--primary);
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .theme-selector {
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      background: rgba(10, 10, 18, 0.9);
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 10px;
+      display: none;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 180px;
+      z-index: 1002;
+    }
+
+    .theme-selector.show {
+      display: flex;
+    }
+
+    .theme-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .theme-option:hover {
+      transform: scale(1.1);
+      border-color: var(--primary);
+    }
+
+    .terminal-output {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--primary);
+      border-radius: 4px;
+      padding: 15px;
+      height: 200px;
+      overflow-y: auto;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      color: var(--primary);
+    }
+
+    .history-item {
+      padding: 10px;
+      margin: 8px 0;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      font-size: 12px;
+      border-left: 3px solid #666;
+    }
+
+    .history-success {
+      border-left-color: #00ff8c;
+    }
+
+    .history-failed {
+      border-left-color: #ff3a3a;
+    }
+
+    .server-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ff3a3a;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #00ff8c;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .closed-notice {
+      text-align: center;
+      padding: 15px;
+      background: rgba(255, 58, 58, 0.2);
+      border: 1px solid #ff3a3a;
+      border-radius: 4px;
+      margin: 15px 0;
+    }
+
+    .info-text {
+      font-size: 12px;
+      color: #aaa;
+      text-align: center;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .ip-check-container {
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      margin: 15px 0;
+    }
+
+    .ip-result {
+      margin-top: 15px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--primary);
+      white-space: pre-wrap;
+    }
+
+    .ddos-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ddos-button {
+      background: linear-gradient(45deg, #ff3a3a, #ff6b6b);
+    }
+
+    .ddos-status {
+      text-align: center;
+      font-weight: bold;
+      margin: 10px 0;
+      padding: 5px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .ai-chat-container {
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      margin: 15px 0;
+      height: 300px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ai-message {
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+
+    .ai-user {
+      background: rgba(0, 255, 255, 0.2);
+      align-self: flex-end;
+      border: 1px solid var(--primary);
+    }
+
+    .ai-bot {
+      background: rgba(255, 0, 255, 0.2);
+      align-self: flex-start;
+      border: 1px solid var(--secondary);
+    }
+
+    .ai-input-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .ai-input {
       flex: 1;
     }
-    .about-features {
-      flex: 1;
+
+    .ai-send {
+      width: auto;
+      padding: 0 15px;
     }
-  }
-    
-/* Membership Section */
-.membership {
-  color: white;
-  text-align: center;
-  padding: 60px 20px;     /* padding secukupnya, bukan blur */
-}
 
-.membership h2 {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-  color: #ff69b4; /* merah */
-}
+    .wifi-killer-container {
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      margin: 15px 0;
+    }
 
-.plan-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 1100px;
-  margin: 40px auto;      /* center */
-  
-  /* blur pindah ke sini */
-  background: rgba(255, 105, 180, 0.04);
-  border: 1px solid rgba(255, 105, 180, 0.1);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 40px;
-}
+    .wifi-killer-result {
+      margin-top: 15px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--primary);
+      max-height: 200px;
+      overflow-y: auto;
+    }
 
-.plan:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 25px rgba(255, 105, 180, 0.04);
-}
+    .wifi-killer-button {
+      background: linear-gradient(45deg, #ff3a3a, #ff6b6b);
+    }
 
-.plan h3 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-  color: #ff69b4;
-}
+    .loading-animation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      margin: 10px 0;
+    }
 
-.plan .price {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 15px 0;
-  color: #fff;
-}
+    .loading-dot {
+      width: 10px;
+      height: 10px;
+      margin: 0 5px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      animation: loading 1.5s infinite ease-in-out;
+    }
 
-.plan .price span {
-  font-size: 0.9rem;
-  color: #aaa;
-}
+    .loading-dot:nth-child(1) {
+      animation-delay: 0s;
+    }
 
-.plan ul {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
-}
+    .loading-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
 
-.plan ul li {
-  margin: 10px 0;
-  font-size: 0.95rem;
-  color: #ddd;
-}
+    .loading-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
 
-.plan ul li i {
-  color: #ff69b4;
-  margin-right: 8px;
-}
+    @keyframes loading {
+      0%, 100% { transform: scale(0.8); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
 
-.plan .btn {
-  display: inline-block;
-  background: #ff69b4; 
-  color: white;
-  text-decoration: none;
-  padding: 10px 18px;
-  border-radius: 10px;
-  font-weight: bold;
-  border: 2px solid #ff85c1; 
-  transition: 0.3s;
-  position: relative;
-}
-
-/* Glow effect */
-.plan .btn::after {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border-radius: 12px;
-  border: 2px solid #ff69b4; 
-  opacity: 0;
-  transition: 0.3s;
-}
-
-.plan .btn:hover {
-  background: #ff85c1; 
-  box-shadow: 0 0 12px rgba(255, 102, 102, 0.6);
-}
-
-.plan .btn:hover::after {
-  opacity: 1; 
-}
-
-
-
-/* Contact Section */
-.contact-section {
-  padding: 60px 20px;
-}
-
-.contact-container {
-  display: flex;
-  flex-direction: column;  /* dari row jadi column */
-  gap: 40px;
-  max-width: 1100px;
-  margin: auto;
-  background: rgba(255, 105, 180, 0.04);
-  border: 1px solid rgba(255, 105, 180, 0.1);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 40px;
-}
-
-.contact-form {
-  flex: 1;
-}
-
-.contact-form h2 {
-  text-align: left;
-  margin-bottom: 20px;
-}
-
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  margin-bottom: 15px;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-}
-
-.contact-form button {
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 10px;
-  background: #ff69b4;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.contact-text {
-  flex: 1;
-  color: white;
-}
-
-.contact-text h3 {
-  font-size: 24px;
-  margin-bottom: 15px;
-}
-
-.contact-text p {
-  margin-bottom: 15px;
-  line-height: 1.6;
-}
-
-ul li {
-  list-style: none;
-  margin: 10px 0;
-  font-size: 18px;
-  color: #fff;
-}
-
-ul li i {
-  color: #0088cc; /* warna khas Telegram */
-  margin-right: 8px;
-  font-size: 20px;
-}
-
-ul li a {
-  color: #ffffff;
-  font-weight: 600;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-ul li a:hover {
-  color: #ff6b6b;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
+    /* Fix untuk memastikan elemen dapat diklik */
+    .clickable {
+      position: relative;
+      z-index: 100;
+    }
   </style>
 </head>
-
 <body>
-  <div id="particles"></div>
-  
-  <!-- Sidebar -->
-  <button class="sidebar-toggle" id="sidebarToggle">
-    <i class="fas fa-bars"></i>
-  </button>
-  
-  <div class="sidebar" id="sidebar">
-    <div class="sidebar-brand">
-      <div class="icon"><i class="fas fa-bolt"></i></div>
-      <div class="brand">XYLENT <span>EMPIRE</span></div>
+  <div class="cyber-bg"></div>
+  <div class="cyber-grid"></div>
+  <div class="cyber-pulse"></div>
+  <canvas id="hackerRain"></canvas>
+
+  <audio id="player" autoplay controls style="display:none"></audio>
+
+  <div class="notification" id="notification">
+    <span id="notification-message"></span>
+  </div>
+
+  <!-- Menu Toggle (Garis 3) -->
+  <div class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Sidebar Menu -->
+  <div class="sidebar-menu" id="sidebarMenu">
+    <h3>SYSTEM MENU</h3>
+    
+    <div class="menu-item" onclick="contactDeveloper('wa')">
+      <i class="fab fa-whatsapp"></i> WhatsApp Developer
     </div>
     
-    <div class="sidebar-nav">
-      <a href="#membership" class="sidebar-item">
-        <i class="fas fa-tags"></i>
-        <span>Plans</span>
-      </a>
-      <a href="#about" class="sidebar-item">
-        <i class="fas fa-info-circle"></i>
-        <span>About</span>
-      </a>
-      <a href="#contact-support" class="sidebar-item">
-        <i class="fas fa-headset"></i>
-        <span>Support</span>
-      </a>
-      <a href="/login" class="sidebar-item">
-        <i class="fas fa-sign-in-alt"></i>
-        <span>Login</span>
-      </a>
+    <div class="menu-item" onclick="contactDeveloper('email')">
+      <i class="fas fa-envelope"></i> Email Developer
     </div>
-  </div>
-
-  <!-- Welcome Section -->
-<section class="welcome">
-  <div class="welcome-content">
-    <h1 id="typing"></h1>
-    <p id="subtext">Xylent Empire Project</p>
-  </div>
-</section>
-   
-
-<section id="about">
-  <div class="container">
     
-    <!-- Left (sekarang di atas) -->
-    <div class="about-text">
-      <h2>About Xylent</h2>
-      <p>
-        Sasuke Crash adalah platform modern untuk mengelola akses API, key management,
-        dan layanan digital dengan sistem yang aman serta fleksibel.
-      </p>
-      <p>
-        Dibangun menggunakan teknologi terbaru, kami hadir untuk mendukung kebutuhan
-        pengguna mulai dari level User, Reseller, hingga Admin.
-      </p>
+    <div class="menu-item" onclick="showAttackHistory()">
+      <i class="fas fa-history"></i> Riwayat Serangan
     </div>
-
-    <!-- Right (sekarang di bawah, kiri kalau lebar) -->
-    <div class="about-features">
-      <div><i class="fa-solid fa-key"></i> Multi-level Key Management</div>
-      <div><i class="fa-solid fa-bolt"></i> High-performance API & Dashboard</div>
-      <div><i class="fa-solid fa-shield-halved"></i> Keamanan & Enkripsi Terjamin</div>
-      <div><i class="fa-solid fa-mobile-screen"></i> Responsive Design for All Devices</div>
-      <div><i class="fa-solid fa-cloud"></i> Cloud-based Infrastructure</div>
-    </div>
-
-  </div>
-</section>
-  
-<!-- Membership Section -->
-<section class="membership" id="membership">
-  <h2><i class="fa-solid fa-rocket"></i> Membership Plans</h2>
-  <div class="plan-container">
     
-    <div class="plan">
-      <h3><i class="fa-solid fa-key"></i> User Key</h3>
-      <div class="price">Rp 20.000 <span>/Lifetime</span></div>
-      <ul>
-        <li><i class="fa-solid fa-check"></i> Full API Access</li>
-        <li><i class="fa-solid fa-check"></i> Daily Request Limit</li>
-        <li><i class="fa-solid fa-check"></i> Standard Support</li>
-        <li><i class="fa-solid fa-check"></i> Web Panel Login</li>
-      </ul>
-        <a href="https://t.me/asepnotdev?text=Haloo%20Asep,%20Saya%20ingin%20membeli%20User%20Key" class="btn" target="_blank">Beli Sekarang</a>
+    <div class="menu-item" onclick="showIPCheck()">
+      <i class="fas fa-globe"></i> Cek IP
     </div>
-
-    <div class="plan">
-      <h3><i class="fa-solid fa-gem"></i> Reseller Key</h3>
-      <div class="price">Rp 100.000 <span>/Lifetime</span></div>
-      <ul>
-        <li><i class="fa-solid fa-check"></i> Bulk Key Access</li>
-        <li><i class="fa-solid fa-check"></i> Higher Request Quota</li>
-        <li><i class="fa-solid fa-check"></i> Priority Support</li>
-        <li><i class="fa-solid fa-check"></i> Manage via Web Panel</li>
-      </ul>
-      <a href="https://t.me/asepnotdev?text=Haloo%20Asep,%20Saya%20ingin%20membeli%20Reseller%20Key" class="btn" target="_blank">Beli Sekarang</a>
-    </div>
-
-    <div class="plan">
-      <h3><i class="fa-solid fa-star"></i> Admin Key</h3>
-      <div class="price">Rp 180.000 <span>/Lifetime</span></div>
-      <ul>
-        <li><i class="fa-solid fa-check"></i> Unlimited Key Generation</li>
-        <li><i class="fa-solid fa-check"></i> Highest Request Quota</li>
-        <li><i class="fa-solid fa-check"></i> Exclusive Admin Panel</li>
-        <li><i class="fa-solid fa-check"></i> VIP Priority Support</li>
-      </ul>
-      <a href="https://t.me/asepnotdev?text=Haloo%20Asep,%20Saya%20ingin%20membeli%20Admin%20Key" class="btn" target="_blank">Beli Sekarang</a>
-    </div>
-
-    <div class="plan">
-      <h3><i class="fa-solid fa-crown"></i> Owners Key</h3>
-      <div class="price">Rp 250.000 <span>/Lifetime</span></div>
-      <ul>
-        <li><i class="fa-solid fa-check"></i> Master Key Access</li>
-        <li><i class="fa-solid fa-check"></i> Create User Key</li>
-        <li><i class="fa-solid fa-check"></i> Create Reseller Key</li>
-        <li><i class="fa-solid fa-check"></i> Create Admin Key</li>
-        <li><i class="fa-solid fa-check"></i> Full System Control</li>
-        <li><i class="fa-solid fa-check"></i> 24/7 Personal Support</li>
-      </ul>
-      <a href="https://t.me/asepnotdev?text=Haloo%20Asep,%20Saya%20ingin%20membeli%20Owners%20Key" class="btn" target="_blank">Beli Sekarang</a>
-    </div>
-
-  </div>
-</section>
-
-  <!-- Contact Section -->
-  <section class="contact-section" id="contact-support">
-  <div class="contact-container">
     
-    <!-- Kolom Kiri (Form) -->
-    <div class="contact-form">
-  <h2>Contact Support</h2>
-  <form id="contactForm">
-    <input type="text" id="name" placeholder="Your Name" required />
-    <input type="text" id="username" placeholder="Your Username" required />
-    <textarea id="message" placeholder="Your Message" rows="4" required></textarea>
-    <button type="submit">Send Message</button>
-  </form>
-  <p id="statusMsg"></p>
-</div>
-
-    <!-- Kolom Kanan (Teks Tambahan) -->
-    <div class="contact-text">
-  <h3>Butuh Bantuan?</h3>
-     <p>
-  Tim support kami hadir sebagai bagian penting dari layanan Xylent Empire,  
-  karena kami percaya bahwa dukungan yang baik adalah kunci dari pengalaman pengguna yang memuaskan.  
-  Melalui platform Telegram, kami menyediakan saluran komunikasi yang cepat, sederhana,  
-  dan selalu dapat diandalkan. Anda tidak perlu repot mengisi form yang rumit atau menunggu balasan email yang lama,  
-  cukup klik username Telegram kami dan Anda akan langsung terhubung dengan tim yang siap membantu.  
-</p>
-<p>
-  Klik username Telegram di bawah dan mulai percakapan dengan kami.
-</p>
-  <ul>
-  <li> <i class="fab fa-telegram"></i> <a href="https://t.me/asepnotdev" target="_blank">@Ryyotaax</a> </li>
-  </ul>
-</div>
-
+    <div class="menu-item" onclick="showDDoSAttack()">
+      <i class="fas fa-bolt"></i> DDoS Attack
+    </div>
+    
+    <div class="menu-item" onclick="showAIAssistant()">
+      <i class="fas fa-robot"></i> AI Assistant
+    </div>
+    
+    <div class="menu-item" onclick="showWifiKiller()">
+      <i class="fas fa-wifi"></i> Wifi Killer
+    </div>
+    
+    <div class="server-toggle">
+      <span>Status Server:</span>
+      <label class="switch">
+        <input type="checkbox" id="serverToggle">
+        <span class="slider" onclick="toggleServerStatus()"></span>
+      </label>
+    </div>
+    
+    <div class="menu-item" onclick="window.open('https://t.me/+qOgLTC0X5DJjMWI9', '_blank')">
+      <i class="fab fa-telegram"></i> Join Grup Telegram
+    </div>
+    
+    <div class="info-text">
+      Aplikasi ini dirancang/dibuat oleh developer GarzZOfficial
+    </div>
+    
+    <div class="info-text">
+      Info update/pembaruan terbaru cek grup telegram
+    </div>
   </div>
-</section>
-</body>
-<!-- Scroll Logic -->
- <script>
-  function scrollToCenter(event, sectionId) {
-    event.preventDefault(); // cegah scroll default anchor
-    const section = document.getElementById(sectionId);
-    if (!section) return;
 
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.offsetHeight;
-    const windowHeight = window.innerHeight;
+  <div class="floating-controls">
+    <div class="theme-selector" id="themeSelector">
+      <div class="theme-option" style="background: #0a0a12;" onclick="setTheme('cyber')" title="Cyber Theme"></div>
+      <div class="theme-option" style="background: #1a1a2e;" onclick="setTheme('blueDark')" title="Blue Dark"></div>
+      <div class="theme-option" style="background: #2d0c03;" onclick="setTheme('redDark')" title="Red Dark"></div>
+      <div class="theme-option" style="background: #001f3f;" onclick="setTheme('blueMatrix')" title="Blue Matrix"></div>
+      <div class="theme-option" style="background: #0f1923;" onclick="setTheme('greenMatrix')" title="Green Matrix"></div>
+    </div>
+    <div class="floating-btn tooltip" onclick="toggleThemeSelector()">
+      <i class="fas fa-palette"></i>
+      <span class="tooltiptext">Ubah Tema Tampilan</span>
+    </div>
+    <div class="floating-btn tooltip" onclick="scrollToTop()">
+      <i class="fas fa-arrow-up"></i>
+      <span class="tooltiptext">Scroll Ke Atas</span>
+    </div>
+    <div class="floating-btn tooltip" onclick="toggleSound()">
+      <i class="fas fa-volume-up" id="soundIcon"></i>
+      <span class="tooltiptext">Toggle Sound Effects</span>
+    </div>
+  </div>
 
-    // hitung posisi agar section pas di tengah viewport
-    const scrollPosition = sectionTop - (windowHeight / 2) + (sectionHeight / 2);
+  <div class="logo-container">
+    <img src="https://files.catbox.moe/jn0p9u.jpg" alt="GarzZOfficial">
+    <h1>GARZ PROJECT</h1>
+    <p class="cyber-text">Advanced Cyber Terminal System</p>
+    <div class="mini-btn-wrapper">
+      <button class="btn-mini" onclick="playPhonk()"><i class="fas fa-music"></i> PHONK</button>
+      <button class="btn-mini" onclick="playSad()"><i class="fas fa-heart"></i> SAD</button>
+      <button class="btn-mini" onclick="toggleAudio()"><i class="fas fa-play" id="playIcon"></i></button>
+      <button class="btn-mini" onclick="nextTrack()"><i class="fas fa-step-forward"></i></button>
+      <button class="btn-mini" onclick="gantiLatar()"><i class="fas fa-image"></i> BG</button>
+    </div>
+  </div>
 
-    window.scrollTo({
-      top: scrollPosition,
-      behavior: "smooth"
-    });
-  }
-</script>
+  <div class="container visible" id="loginBox">
+    <h2><i class="fas fa-terminal"></i> SYSTEM LOGIN</h2>
+    <input type="text" id="username" placeholder="ENTER USERNAME" />
+    <input type="password" id="password" placeholder="ENTER PASSWORD" />
+    <p id="expiredInfo" style="color:#ff4444; margin-top: 10px;"></p>
+    <button onclick="login()"><i class="fas fa-lock-open"></i> ACCESS TERMINAL</button>
+    <div class="status-bar">
+      <a class="support" href="https://wa.me/62895402128077"><i class="fab fa-whatsapp"></i> CONTACT SUPPORT</a>
+      <span id="serverStatus"><span class="cyber-loader"></span> CONNECTING...</span>
+    </div>
+  </div>
 
-<!-- Typing Logic -->
- <script>
-  const text = "Sasuke Crash Present";
-  let i = 0;
+  <div class="container hidden" id="panelBox">
+    <div class="user-info">
+      <div class="user-avatar" id="userAvatar"></div>
+      <div>
+        <h2 id="welcomeMsg">WELCOME, AGENT</h2>
+        <div id="expiredDisplay" style="font-size: 11px; color: var(--primary);"></div>
+      </div>
+    </div>
 
-  function typingEffect() {
-    if (i < text.length) {
-      document.getElementById("typing").innerHTML += text.charAt(i);
-      i++;
-      setTimeout(typingEffect, 100);
-    } else {
-      document.getElementById("typing").classList.add("glow");
-      setTimeout(() => {
-        document.getElementById("subtext").style.opacity = 1;
-      }, 800);
-    }
-  }
+    <div class="terminal-output" id="terminalOutput">
+      <div>> System initialized</div>
+      <div>> Terminal ready</div>
+    </div>
 
-  window.onload = typingEffect;
-</script>
+    <input type="text" id="nomorTujuan" placeholder="ENTER TARGET" />
+    
+    <div id="closedNotice" class="closed-notice hidden">
+      <i class="fas fa-exclamation-triangle"></i> SERVER CLOSED<br>PLEASE TRY AGAIN LATER.
+    </div>
+    
+    <div id="bugControls">
+      <button onclick="kirim('Forclose')"><i class=""></i> 🗑 Forclose Delete</button>
+      <button onclick="kirim('DelayInvisible')"><i class=""></i> 👻 Delay Invisible</button>
+    </div>
+    
+    <div class="status-bar">
+      <span id="serverStatusPanel"><span class="cyber-loader"></span> CHECKING SERVER...</span>
+      <a href="javascript:void(0)" onclick="logout()" style="color:#ff4444;"><i class="fas fa-power-off"></i> LOGOUT</a>
+    </div>
+  </div>
 
-<!-- Contact Support Via Bot -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-  const BOT_TOKEN = "8126073882:AAFCID4L5NiUBwFH5m0ihr6EZUVvpi34EKo";
-  const CHAT_ID = "8011196921"; // user id atau group id
-  const TELEGRAM_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+  <div class="container hidden" id="successBox">
+    <h2><i class="fas fa-bug"></i> ATTACK IN PROGRESS</h2>
+    <div class="loading-wrapper">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+    
+    <div id="successContent" class="hidden">
+      <div id="resultDetails"></div>
+      <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+    </div>
+  </div>
 
-  document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+  <div class="container hidden" id="historyContainer">
+    <h2><i class="fas fa-history"></i> ATTACK HISTORY</h2>
+    <div id="attackHistoryList"></div>
+    <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+  </div>
 
-    const name = document.getElementById("name").value;
-    const username = document.getElementById("username").value; // ganti email jadi username
-    const message = document.getElementById("message").value;
+  <div class="container hidden" id="ipCheckContainer">
+    <h2><i class="fas fa-globe"></i> IP CHECKER</h2>
+    <div class="ip-check-container">
+      <input type="text" id="ipInput" placeholder="Masukkan IP (contoh: 123.45.67.89)" />
+      <button onclick="checkIP()"><i class="fas fa-search"></i> CEK IP</button>
+      <div id="ipResult" class="ip-result"></div>
+    </div>
+    <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+  </div>
 
-    const text = `📩 *New Contact Form Message* \n\n👤 Name: ${name}\n🔗 Username: ${username}\n💬 Message: ${message}`;
+  <div class="container hidden" id="ddosContainer">
+    <h2><i class="fas fa-bolt"></i> DDoS ATTACK</h2>
+    <div class="ip-check-container">
+      <input type="text" id="ddosTarget" placeholder="Masukkan Target (contoh: example.com)" />
+      <input type="number" id="ddosPort" placeholder="Port (default: 80)" value="80" />
+      <input type="number" id="ddosThreads" placeholder="Threads (default: 10)" value="10" />
+      <div class="ddos-controls">
+        <button class="ddos-button" onclick="startDDoSAttack()"><i class="fas fa-play"></i> START DDoS</button>
+        <button onclick="stopDDoSAttack()"><i class="fas fa-stop"></i> STOP DDoS</button>
+      </div>
+      <div id="ddosStatus" class="ddos-status">READY</div>
+      <div id="ddosLog" class="ip-result" style="height: 150px; overflow-y: auto;"></div>
+    </div>
+    <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+  </div>
 
-    fetch(TELEGRAM_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: text,
-        parse_mode: "Markdown"
-      }),
-    })
-    .then(res => res.json())
-    .then(data => {
-      Swal.fire({
-        title: "Pesan Berhasil Terkirim!",
-        text: "Terima kasih sudah menghubungi kami, tim akan segera merespons via Telegram.",
-        icon: "success",
-        background: "rgba(20,20,20,0.95)",
-        color: "#fff",
-        showConfirmButton: false,
-        timer: 7000,
-        customClass: {
-          popup: 'swal-custom-popup'
-        }
-      });
-      document.getElementById("contactForm").reset();
-    })
-    .catch(err => {
-      Swal.fire({
-        title: "❌ Gagal!",
-        text: "Pesan tidak dapat terkirim, coba lagi nanti.",
-        icon: "error",
-        background: "rgba(20,20,20,0.95)",
-        color: "#fff",
-        showConfirmButton: false,
-        timer: 5000
-      });
-      console.error(err);
-    });
-  });
-</script>
+  <div class="container hidden" id="aiAssistantContainer">
+    <h2><i class="fas fa-robot"></i> GARZ AI ASSISTANT</h2>
+    <div class="ai-chat-container" id="aiChat">
+      <div class="ai-message ai-bot">
+        Halo! Saya Garz AI Asisten. Ada yang bisa saya bantu?
+      </div>
+    </div>
+    <div class="ai-input-container">
+      <input type="text" id="aiInput" class="ai-input" placeholder="Ketik pesan Anda di sini..." />
+      <button onclick="sendAIMessage()" class="ai-send"><i class="fas fa-paper-plane"></i></button>
+    </div>
+    <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+  </div>
 
-<style>
-.swal-custom-popup {
-  border-radius: 20px !important;
-  box-shadow: 0 0 25px rgba(255, 0, 0, 0.7),
-              0 0 40px rgba(255, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-}
-</style>
+  <div class="container hidden" id="wifiKillerContainer">
+    <h2><i class="fas fa-wifi"></i> WIFI KILLER</h2>
+    <div class="wifi-killer-container">
+      <p>Fitur ini akan memindai jaringan untuk menemukan perangkat yang terhubung.</p>
+      <button class="wifi-killer-button" onclick="startWifiKiller()"><i class="fas fa-search"></i> SCAN JARINGAN</button>
+      
+      <div id="wifiKillerLoading" class="loading-animation hidden">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+      
+      <div id="wifiKillerResult" class="wifi-killer-result hidden">
+        <!-- Hasil scan akan ditampilkan di sini -->
+      </div>
+    </div>
+    <button onclick="backToPanel()"><i class="fas fa-arrow-left"></i> BACK TO PANEL</button>
+  </div>
 
-</script>
-  <!-- Particleground Library -->
-  <script src="https://cdn.jsdelivr.net/gh/jnicol/particleground/jquery.particleground.min.js"></script>
- <script> /*!
- * Particleground
- *
- */
- document.addEventListener('DOMContentLoaded', function () {
-  particleground(document.getElementById('particles'), {
-    dotColor: '#ff69b4',
-    lineColor: '#ff69b4'
-  });
-  var intro = document.getElementById('intro');
-  intro.style.marginTop = - intro.offsetHeight / 2 + 'px';
-}, false);
-
-
-
-;(function(window, document) {
-  "use strict";
-  var pluginName = 'particleground';
-
-  function extend(out) {
-    out = out || {};
-    for (var i = 1; i < arguments.length; i++) {
-      var obj = arguments[i];
-      if (!obj) continue;
-      for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          if (typeof obj[key] === 'object')
-            deepExtend(out[key], obj[key]);
-          else
-            out[key] = obj[key];
-        }
-      }
-    }
-    return out;
-  };
-
-  var $ = window.jQuery;
-
-  function Plugin(element, options) {
-    var canvasSupport = !!document.createElement('canvas').getContext;
-    var canvas;
-    var ctx;
-    var particles = [];
-    var raf;
-    var mouseX = 0;
-    var mouseY = 0;
-    var winW;
-    var winH;
-    var desktop = !navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|BB10|mobi|tablet|opera mini|nexus 7)/i);
-    var orientationSupport = !!window.DeviceOrientationEvent;
-    var tiltX = 0;
-    var pointerX;
-    var pointerY;
-    var tiltY = 0;
-    var paused = false;
-
-    options = extend({}, window[pluginName].defaults, options);
-
-    /**
-     * Init
-     */
-    function init() {
-      if (!canvasSupport) { return; }
-
-      //Create canvas
-      canvas = document.createElement('canvas');
-      canvas.className = 'pg-canvas';
-      canvas.style.display = 'block';
-      element.insertBefore(canvas, element.firstChild);
-      ctx = canvas.getContext('2d');
-      styleCanvas();
-
-      // Create particles
-      var numParticles = Math.round((canvas.width * canvas.height) / options.density);
-      for (var i = 0; i < numParticles; i++) {
-        var p = new Particle();
-        p.setStackPos(i);
-        particles.push(p);
-      };
-
-      window.addEventListener('resize', function() {
-        resizeHandler();
-      }, false);
-
-      document.addEventListener('mousemove', function(e) {
-        mouseX = e.pageX;
-        mouseY = e.pageY;
-      }, false);
-
-      if (orientationSupport && !desktop) {
-        window.addEventListener('deviceorientation', function () {
-          // Contrain tilt range to [-30,30]
-          tiltY = Math.min(Math.max(-event.beta, -30), 30);
-          tiltX = Math.min(Math.max(-event.gamma, -30), 30);
-        }, true);
-      }
-
-      draw();
-      hook('onInit');
-    }
-
-    /**
-     * Style the canvas
-     */
-    function styleCanvas() {
-      canvas.width = element.offsetWidth;
-      canvas.height = element.offsetHeight;
-      ctx.fillStyle = options.dotColor;
-      ctx.strokeStyle = options.lineColor;
-      ctx.lineWidth = options.lineWidth;
-    }
-
-    /**
-     * Draw particles
-     */
-    function draw() {
-      if (!canvasSupport) { return; }
-
-      winW = window.innerWidth;
-      winH = window.innerHeight;
-
-      // Wipe canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Update particle positions
-      for (var i = 0; i < particles.length; i++) {
-        particles[i].updatePosition();
-      };
-      // Draw particles
-      for (var i = 0; i < particles.length; i++) {
-        particles[i].draw();
-      };
-
-      // Call this function next time screen is redrawn
-      if (!paused) {
-        raf = requestAnimationFrame(draw);
-      }
-    }
-
-    /**
-     * Add/remove particles.
-     */
-    function resizeHandler() {
-      // Resize the canvas
-      styleCanvas();
-
-      var elWidth = element.offsetWidth;
-      var elHeight = element.offsetHeight;
-
-      // Remove particles that are outside the canvas
-      for (var i = particles.length - 1; i >= 0; i--) {
-        if (particles[i].position.x > elWidth || particles[i].position.y > elHeight) {
-          particles.splice(i, 1);
-        }
-      };
-
-      // Adjust particle density
-      var numParticles = Math.round((canvas.width * canvas.height) / options.density);
-      if (numParticles > particles.length) {
-        while (numParticles > particles.length) {
-          var p = new Particle();
-          particles.push(p);
-        }
-      } else if (numParticles < particles.length) {
-        particles.splice(numParticles);
-      }
-
-      // Re-index particles
-      for (i = particles.length - 1; i >= 0; i--) {
-        particles[i].setStackPos(i);
-      };
-    }
-
-    /**
-     * Pause particle system
-     */
-    function pause() {
-      paused = true;
-    }
-
-    /**
-     * Start particle system
-     */
-    function start() {
-      paused = false;
-      draw();
-    }
-
-    /**
-     * Particle
-     */
-    function Particle() {
-      this.stackPos;
-      this.active = true;
-      this.layer = Math.ceil(Math.random() * 3);
-      this.parallaxOffsetX = 0;
-      this.parallaxOffsetY = 0;
-      // Initial particle position
-      this.position = {
-        x: Math.ceil(Math.random() * canvas.width),
-        y: Math.ceil(Math.random() * canvas.height)
-      }
-      // Random particle speed, within min and max values
-      this.speed = {}
-      switch (options.directionX) {
-        case 'left':
-          this.speed.x = +(-options.maxSpeedX + (Math.random() * options.maxSpeedX) - options.minSpeedX).toFixed(2);
-          break;
-        case 'right':
-          this.speed.x = +((Math.random() * options.maxSpeedX) + options.minSpeedX).toFixed(2);
-          break;
-        default:
-          this.speed.x = +((-options.maxSpeedX / 2) + (Math.random() * options.maxSpeedX)).toFixed(2);
-          this.speed.x += this.speed.x > 0 ? options.minSpeedX : -options.minSpeedX;
-          break;
-      }
-      switch (options.directionY) {
-        case 'up':
-          this.speed.y = +(-options.maxSpeedY + (Math.random() * options.maxSpeedY) - options.minSpeedY).toFixed(2);
-          break;
-        case 'down':
-          this.speed.y = +((Math.random() * options.maxSpeedY) + options.minSpeedY).toFixed(2);
-          break;
-        default:
-          this.speed.y = +((-options.maxSpeedY / 2) + (Math.random() * options.maxSpeedY)).toFixed(2);
-          this.speed.x += this.speed.y > 0 ? options.minSpeedY : -options.minSpeedY;
-          break;
-      }
-    }
-
-    /**
-     * Draw particle
-     */
-    Particle.prototype.draw = function() {
-  // === Titik Partikel ===
-  ctx.save();
-  ctx.shadowColor = '#ff69b4';      // Warna glow
-  ctx.shadowBlur = 16;               // Intensitas blur
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 0;
-
-  ctx.beginPath();
-  ctx.arc(
-    this.position.x + this.parallaxOffsetX,
-    this.position.y + this.parallaxOffsetY,
-    options.particleRadius / 2,
-    0,
-    Math.PI * 2,
-    true
-  );
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
-
-  // === Garis Antar Partikel ===
-  ctx.save();
-  ctx.shadowColor = '#ff69b4';
-  ctx.shadowBlur = 16;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 0;
-
-  ctx.beginPath();
-  for (var i = particles.length - 1; i > this.stackPos; i--) {
-    var p2 = particles[i];
-
-    // Hitung jarak antar titik (Pythagoras)
-    var a = this.position.x - p2.position.x;
-    var b = this.position.y - p2.position.y;
-    var dist = Math.sqrt((a * a) + (b * b)).toFixed(2);
-
-    if (dist < options.proximity) {
-      ctx.moveTo(
-        this.position.x + this.parallaxOffsetX,
-        this.position.y + this.parallaxOffsetY
-      );
-
-      if (options.curvedLines) {
-        ctx.quadraticCurveTo(
-          Math.max(p2.position.x, p2.position.x),
-          Math.min(p2.position.y, p2.position.y),
-          p2.position.x + p2.parallaxOffsetX,
-          p2.position.y + p2.parallaxOffsetY
-        );
-      } else {
-        ctx.lineTo(
-          p2.position.x + p2.parallaxOffsetX,
-          p2.position.y + p2.parallaxOffsetY
-        );
-      }
-    }
-  }
-  ctx.stroke();
-  ctx.restore();
-};
-
-    /**
-     * Update particle position
-     */
-    Particle.prototype.updatePosition = function() {
-      if (options.parallax) {
-        if (orientationSupport && !desktop) {
-          // Map tiltX range [-30,30] to [0,winW]
-          pointerX = ((tiltX + 30) * winW) / 60;
-          // Map tiltY range [-30,30] to [0,winH]
-          pointerY = ((tiltY + 30) * winH) / 60;
-        } else {
-          pointerX = mouseX;
-          pointerY = mouseY;
-        }
-        // Calculate parallax offsets
-        this.parallaxOffsetX = (pointerX - (winW / 2)) * (this.layer / options.parallaxMultiplier);
-        this.parallaxOffsetY = (pointerY - (winH / 2)) * (this.layer / options.parallaxMultiplier);
-      }
-
-      var elWidth = element.offsetWidth;
-      var elHeight = element.offsetHeight;
-
-      // Add speed to particle position
-      this.position.x += this.speed.x;
-      this.position.y += this.speed.y;
-
-      // Apply boundary limits
-      if (this.position.x < 0 - options.particleRadius) {
-        this.position.x = elWidth + options.particleRadius;
-      }
-      if (this.position.x > elWidth + options.particleRadius) {
-        this.position.x = 0 - options.particleRadius;
-      }
-      if (this.position.y < 0 - options.particleRadius) {
-        this.position.y = elHeight + options.particleRadius;
-      }
-      if (this.position.y > elHeight + options.particleRadius) {
-        this.position.y = 0 - options.particleRadius;
-      }
-    }
-
-    /**
-     * Setter: particle stacking position
-     */
-    Particle.prototype.setStackPos = function(index) {
-      this.stackPos = index;
-    }
-
-    Plugin.prototype = {
-      init: init,
-      pause: pause,
-      start: start,
+  <script>
+    // Data pengguna
+    const users = {
+      "GarzZOfficial": { pass: "2010", expired: "2026-07-22T23:59:59", avatar: "G" },
+      "I": { pass: "1", expired: "2025-07-25T23:59:59", avatar: "I" },
+      "2": { pass: "2", expired: "2025-07-27T23:59:59", avatar: "2" }
     };
-
-    var plugin = new Plugin();
-
-    plugin.init();
-
-    // Expose public methods
-    return {
-      pause: plugin.pause,
-      start: plugin.start
+    
+    let currentUser = null;
+    let serverOnline = false;
+    let hackerColor = "#0ff";
+    let currentTheme = 'cyber';
+    let soundEnabled = true;
+    let attackHistory = [];
+    let ddosActive = false;
+    let ddosThreads = [];
+    
+    // Kelas Garz AI Assistant
+    class GarzAI {
+      constructor() {
+        this.name = "Garz AI Asisten GarzProject";
+        this.responses = {
+          "info": "Saya adalah AI asisten khusus GarzProject. Saya siap membantu Anda!",
+          "time": `Waktu sekarang: ${new Date().toLocaleTimeString('id-ID')}`,
+          "date": `Hari ini: ${new Date().toLocaleDateString('id-ID')}`,
+          "help": "Daftar perintah yang tersedia: info, time, date, help, joke, bug, ddos, ip"
+        };
+      }
+      
+      processCommand(user_input) {
+        user_input = user_input.toLowerCase();
+        
+        if (user_input.includes('halo') || user_input.includes('hai')) {
+          return this.getRandomResponse(["Halo! Ada yang bisa saya bantu?", 
+                                      "Hai! Silakan beri perintah!"]);
+        }
+        
+        else if (user_input.includes('info')) {
+          return this.responses['info'];
+        }
+        
+        else if (user_input.includes('time') || user_input.includes('jam')) {
+          this.responses['time'] = `Waktu sekarang: ${new Date().toLocaleTimeString('id-ID')}`;
+          return this.responses['time'];
+        }
+        
+        else if (user_input.includes('date') || user_input.includes('tanggal')) {
+          this.responses['date'] = `Hari ini: ${new Date().toLocaleDateString('id-ID')}`;
+          return this.responses['date'];
+        }
+        
+        else if (user_input.includes('help') || user_input.includes('bantuan')) {
+          return this.responses['help'];
+        }
+        
+        else if (user_input.includes('joke') || user_input.includes('lucu')) {
+          return this.getRandomResponse([
+            "Kenapa programmer sulit tidur? Karena mereka selalu bug!",
+            "Apa jenis makanan favorit AI? Microchips!",
+            "Kenapa hacker tidak pernah berbohong? Karena mereka selalu crack password!",
+            "Apa yang dikatakan server kepada client? Jangan request aku lagi!"
+          ]);
+        }
+        
+        else if (user_input.includes('bug') || user_input.includes('call')) {
+          return "Untuk menggunakan fitur bug, silakan kembali ke panel utama dan masukkan nomor target.";
+        }
+        
+        else if (user_input.includes('ddos')) {
+          return "Fitur DDoS Attack tersedia di menu. Gunakan dengan bijak dan hanya untuk testing pada sistem Anda sendiri.";
+        }
+        
+        else if (user_input.includes('ip') || user_input.includes('cek ip')) {
+          return "Fitur Cek IP tersedia di menu. Anda dapat mengecek informasi IP address tertentu.";
+        }
+        
+        else if (user_input.includes('wifi') || user_input.includes('killer')) {
+          return "Fitur Wifi Killer tersedia di menu. Gunakan untuk memindai perangkat dalam jaringan.";
+        }
+        
+        else if (user_input.includes('terima kasih') || user_input.includes('thanks')) {
+          return this.getRandomResponse([
+            "Sama-sama! Senang bisa membantu.",
+            "Terima kasih kembali!",
+            "Jika ada yang lain, saya siap membantu!"
+          ]);
+        }
+        
+        else {
+          return "Maaf, saya tidak mengerti perintah tersebut. Ketik 'help' untuk melihat daftar perintah yang tersedia.";
+        }
+      }
+      
+      getRandomResponse(responses) {
+        return responses[Math.floor(Math.random() * responses.length)];
+      }
     }
-  }
-
-  window[pluginName] = function(elem, options) {
-    return new Plugin(elem, options);
-  };
-
-  window[pluginName].defaults = {
-    minSpeedX: 0.1,
-    maxSpeedX: 0.7,
-    minSpeedY: 0.1,
-    maxSpeedY: 0.7,
-    directionX: 'center',
-    directionY: 'center',
-    density: 10000,
-    dotColor: '#ff69b4',
-    lineColor: '#ff69b4',
-    particleRadius: 7,
-    lineWidth: 1,
-    curvedLines: false,
-    proximity: 100,
-    parallax: true,
-    parallaxMultiplier: 5,
-    onInit: function() {}
-  };
-
-  // nothing wrong with it ;)
-  console.log('Sasuke Crash');
-
-})(window, document);
-</script>
-<script>
-  // Sidebar toggle functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    const sidebar = document.getElementById('sidebar');
-    const sidebarToggle = document.getElementById('sidebarToggle');
     
-    sidebarToggle.addEventListener('click', function() {
-      sidebar.classList.toggle('active');
-    });
+    // Inisialisasi AI
+    const garzAI = new GarzAI();
     
-    // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', function(event) {
-      if (window.innerWidth <= 768 && 
-          !sidebar.contains(event.target) && 
-          !sidebarToggle.contains(event.target) &&
-          sidebar.classList.contains('active')) {
-        sidebar.classList.remove('active');
+    // Fungsi untuk toggle menu
+    function toggleMenu() {
+      const menuToggle = document.getElementById("menuToggle");
+      const sidebarMenu = document.getElementById("sidebarMenu");
+      
+      menuToggle.classList.toggle("active");
+      sidebarMenu.classList.toggle("active");
+    }
+    
+    // Inisialisasi event listener untuk menu toggle
+    document.getElementById("menuToggle").addEventListener("click", toggleMenu);
+    
+    // Fungsi untuk menghubungi developer
+    function contactDeveloper(type) {
+      if (type === 'wa') {
+        window.open('https://wa.me/62895402128077', '_blank');
+        showNotification('Membuka WhatsApp Developer', 'info');
+      } else if (type === 'email') {
+        window.location.href = 'mailto:garzkendala2010@gmail.com';
+        showNotification('Membuka Email Developer', 'info');
+      }
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk toggle status server
+    function toggleServerStatus() {
+      const serverToggle = document.getElementById("serverToggle");
+      serverOnline = !serverOnline;
+      serverToggle.checked = serverOnline;
+      
+      if (serverOnline) {
+        showNotification('Server status: ONLINE', 'success');
+      } else {
+        showNotification('Server status: OFFLINE', 'error');
+      }
+    }
+    
+    // Fungsi untuk menampilkan riwayat serangan
+    function showAttackHistory() {
+      const panelBox = document.getElementById("panelBox");
+      const historyContainer = document.getElementById("historyContainer");
+      const attackHistoryList = document.getElementById("attackHistoryList");
+      
+      panelBox.classList.remove("visible");
+      panelBox.classList.add("hidden");
+      
+      historyContainer.classList.remove("hidden");
+      historyContainer.classList.add("visible");
+      
+      if (attackHistory.length === 0) {
+        attackHistoryList.innerHTML = '<div class="history-item">Tidak ada riwayat serangan</div>';
+      } else {
+        attackHistoryList.innerHTML = '';
+        attackHistory.forEach(item => {
+          const historyItem = document.createElement("div");
+          historyItem.className = `history-item ${item.status === 'success' ? 'history-success' : 'history-failed'}`;
+          historyItem.innerHTML = `
+            <strong>${item.target}</strong> - ${item.mode}<br>
+            <small>${item.date} - ${item.status.toUpperCase()}</small>
+          `;
+          attackHistoryList.appendChild(historyItem);
+        });
+      }
+      
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk menampilkan cek IP
+    function showIPCheck() {
+      const panelBox = document.getElementById("panelBox");
+      const ipCheckContainer = document.getElementById("ipCheckContainer");
+      
+      panelBox.classList.remove("visible");
+      panelBox.classList.add("hidden");
+      
+      ipCheckContainer.classList.remove("hidden");
+      ipCheckContainer.classList.add("visible");
+      
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk menampilkan DDoS Attack
+    function showDDoSAttack() {
+      const panelBox = document.getElementById("panelBox");
+      const ddosContainer = document.getElementById("ddosContainer");
+      
+      panelBox.classList.remove("visible");
+      panelBox.classList.add("hidden");
+      
+      ddosContainer.classList.remove("hidden");
+      ddosContainer.classList.add("visible");
+      
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk menampilkan AI Assistant
+    function showAIAssistant() {
+      const panelBox = document.getElementById("panelBox");
+      const aiAssistantContainer = document.getElementById("aiAssistantContainer");
+      
+      panelBox.classList.remove("visible");
+      panelBox.classList.add("hidden");
+      
+      aiAssistantContainer.classList.remove("hidden");
+      aiAssistantContainer.classList.add("visible");
+      
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk menampilkan Wifi Killer
+    function showWifiKiller() {
+      const panelBox = document.getElementById("panelBox");
+      const wifiKillerContainer = document.getElementById("wifiKillerContainer");
+      
+      panelBox.classList.remove("visible");
+      panelBox.classList.add("hidden");
+      
+      wifiKillerContainer.classList.remove("hidden");
+      wifiKillerContainer.classList.add("visible");
+      
+      toggleMenu(); // Tutup menu setelah diklik
+    }
+    
+    // Fungsi untuk memulai Wifi Killer
+    function startWifiKiller() {
+      const loadingElement = document.getElementById("wifiKillerLoading");
+      const resultElement = document.getElementById("wifiKillerResult");
+      
+      // Tampilkan loading animation
+      loadingElement.classList.remove("hidden");
+      resultElement.classList.add("hidden");
+      
+      // Simulasi proses scanning (dalam browser tidak bisa melakukan scanning jaringan sebenarnya)
+      setTimeout(() => {
+        loadingElement.classList.add("hidden");
+        resultElement.classList.remove("hidden");
+        
+        // Generate random IP addresses untuk simulasi
+        const baseIP = "192.168.1.";
+        const devices = [];
+        
+        // Generate 5-15 random devices
+        const deviceCount = Math.floor(Math.random() * 11) + 5;
+        for (let i = 0; i < deviceCount; i++) {
+          const ip = baseIP + Math.floor(Math.random() * 255);
+          devices.push(ip);
+        }
+        
+        // Tampilkan hasil
+        resultElement.innerHTML = "<strong>Perangkat yang ditemukan:</strong><br>";
+        devices.forEach(ip => {
+          resultElement.innerHTML += `[+] ${ip}<br>`;
+        });
+        
+        resultElement.innerHTML += `<br><strong>Total: ${deviceCount} perangkat ditemukan</strong>`;
+        
+        // Tambahkan ke terminal output
+        addTerminalOutput(`Wifi Killer: Found ${deviceCount} devices on network`);
+        
+        showNotification("Scan jaringan selesai!", "success");
+      }, 3000);
+    }
+    
+    // Fungsi untuk mengirim pesan ke AI
+    function sendAIMessage() {
+      const aiInput = document.getElementById("aiInput");
+      const aiChat = document.getElementById("aiChat");
+      
+      if (!aiInput.value.trim()) return;
+      
+      // Tambahkan pesan user ke chat
+      const userMessage = document.createElement("div");
+      userMessage.className = "ai-message ai-user";
+      userMessage.textContent = aiInput.value;
+      aiChat.appendChild(userMessage);
+      
+      // Proses pesan dengan AI
+      const response = garzAI.processCommand(aiInput.value);
+      
+      // Tambahkan pesan AI ke chat (dengan delay untuk efek natural)
+      setTimeout(() => {
+        const aiMessage = document.createElement("div");
+        aiMessage.className = "ai-message ai-bot";
+        aiMessage.textContent = response;
+        aiChat.appendChild(aiMessage);
+        aiChat.scrollTop = aiChat.scrollHeight;
+      }, 500);
+      
+      // Clear input
+      aiInput.value = "";
+    }
+    
+    // Event listener untuk tombol Enter pada input AI
+    document.getElementById("aiInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        sendAIMessage();
       }
     });
-  });
-</script>
+    
+    // Fungsi untuk cek IP
+    async function checkIP() {
+      const ipInput = document.getElementById("ipInput").value.trim();
+      const ipResult = document.getElementById("ipResult");
+      
+      if (!ipInput) {
+        ipResult.innerHTML = "Masukkan IP nya!\nContoh: 123.45.67.89";
+        return;
+      }
+      
+      ipResult.innerHTML = "Memeriksa IP...";
+      
+      try {
+        const res = await fetch(`https://ipwhois.app/json/${ipInput}`);
+        const data = await res.json();
+        
+        if (data.success === false || !data.ip) {
+          ipResult.innerHTML = "IP tidak valid atau tidak ditemukan.";
+          return;
+        }
+
+        const info = `
+IP: ${data.ip}
+ISP: ${data.isp}
+ASN: ${data.asn}
+Provider: ${data.org}
+Negara: ${data.country} (${data.country_code})
+Region: ${data.region}
+Kota: ${data.city}
+Lokasi: ${data.latitude}, ${data.longitude}
+Timezone: ${data.timezone}
+Reverse DNS: ${data.reverse || '-'}
+        `.trim();
+        
+        ipResult.innerHTML = info;
+        
+        // Tambahkan ke terminal output
+        addTerminalOutput(`IP Check: ${data.ip} - ${data.country}`);
+        
+      } catch (e) {
+        console.log(e);
+        ipResult.innerHTML = "Gagal mengambil data IP.";
+      }
+    }
+    
+    // Fungsi untuk DDoS Attack
+    function startDDoSAttack() {
+      const target = document.getElementById("ddosTarget").value.trim();
+      const port = document.getElementById("ddosPort").value || 80;
+      const threads = document.getElementById("ddosThreads").value || 10;
+      const ddosStatus = document.getElementById("ddosStatus");
+      const ddosLog = document.getElementById("ddosLog");
+      
+      if (!target) {
+        showNotification("Masukkan target terlebih dahulu!", "error");
+        return;
+      }
+      
+      ddosActive = true;
+      ddosStatus.innerText = "ATTACKING...";
+      ddosStatus.style.color = "#ff3a3a";
+      ddosLog.innerHTML = "";
+      
+      // Simulasi DDoS Attack (hanya untuk demonstrasi)
+      // Dalam implementasi nyata, ini akan membutuhkan teknologi yang lebih canggih
+      for (let i = 0; i < threads; i++) {
+        const thread = setInterval(() => {
+          if (!ddosActive) {
+            clearInterval(thread);
+            return;
+          }
+          
+          // Simulasi pengiriman paket
+          const now = new Date().toLocaleTimeString();
+          ddosLog.innerHTML += `[${now}] Thread ${i+1}: Mengirim paket ke ${target}:${port}<br>`;
+          ddosLog.scrollTop = ddosLog.scrollHeight;
+          
+          // Tambahkan ke terminal output
+          addTerminalOutput(`DDoS: Mengirim paket ke ${target}:${port}`);
+        }, 100); // Kirim setiap 100ms
+      
+        ddosThreads.push(thread);
+      }
+      
+      showNotification("DDoS Attack dimulai!", "info");
+    }
+    
+    // Fungsi untuk menghentikan DDoS Attack
+    function stopDDoSAttack() {
+      ddosActive = false;
+      ddosThreads.forEach(thread => clearInterval(thread));
+      ddosThreads = [];
+      
+      const ddosStatus = document.getElementById("ddosStatus");
+      ddosStatus.innerText = "STOPPED";
+      ddosStatus.style.color = "#00ff8c";
+      
+      showNotification("DDoS Attack dihentikan!", "info");
+    }
+    
+    // Fungsi untuk menambahkan riwayat serangan
+    function addToAttackHistory(target, mode, status) {
+      const now = new Date();
+      const dateString = now.toLocaleString('id-ID');
+      
+      attackHistory.unshift({
+        target,
+        mode,
+        status,
+        date: dateString
+      });
+      
+      // Simpan ke localStorage
+      localStorage.setItem('attackHistory', JSON.stringify(attackHistory));
+    }
+    
+    // Fungsi notifikasi
+    function showNotification(message, type = "info") {
+      const notification = document.getElementById("notification");
+      const messageEl = document.getElementById("notification-message");
+      
+      messageEl.innerHTML = message;
+      notification.className = "notification " + type;
+      notification.classList.add("show");
+      
+      // Play sound if enabled
+      if (soundEnabled) {
+        const audio = new Audio(type === "error" ? 
+          "https://assets.mixkit.co/sfx/preview/mixkit-alarm-tone-996.mp3" :
+          "https://assets.mixkit.co/sfx/preview/mixkit-magic-sparkle-3021.mp3");
+        audio.volume = 0.3;
+        audio.play();
+      }
+      
+      setTimeout(() => {
+        notification.classList.remove("show");
+      }, 3000);
+    }
+    
+    // Fungsi login
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const info = document.getElementById("expiredInfo");
+      const userData = users[user];
+
+      if (userData && userData.pass === pass) {
+        const now = new Date();
+        const expDate = new Date(userData.expired);
+        if (now > expDate) {
+          info.innerText = "❌ ACCOUNT EXPIRED!";
+          showNotification("Account has expired!", "error");
+          return;
+        }
+        
+        currentUser = user;
+        document.getElementById("userAvatar").innerText = userData.avatar || user.charAt(0);
+        
+        document.getElementById("loginBox").classList.remove("visible");
+        document.getElementById("loginBox").classList.add("hidden");
+        
+        document.getElementById("panelBox").classList.remove("hidden");
+        document.getElementById("panelBox").classList.add("visible");
+        
+        document.getElementById("welcomeMsg").innerText = `WELCOME, ${user.toUpperCase()}!`;
+        document.getElementById("expiredDisplay").innerText = `EXPIRATION: ${userData.expired.split("T")[0]}`;
+        
+        // Muat riwayat dari localStorage
+        const savedHistory = localStorage.getItem('attackHistory');
+        if (savedHistory) {
+          attackHistory = JSON.parse(savedHistory);
+        }
+        
+        // Add to terminal output
+        addTerminalOutput(`> User ${user} authenticated`);
+        addTerminalOutput(`> Access level: authorized`);
+        addTerminalOutput(`> Terminal ready for commands`);
+        
+        showNotification("Authentication successful!", "success");
+        
+      } else {
+        info.innerText = "❌ INVALID CREDENTIALS!";
+        showNotification("Invalid username or password!", "error");
+      }
+    }     
+
+    // Fungsi logout
+    function logout() {
+      currentUser = null;
+      
+      document.getElementById("panelBox").classList.remove("visible");
+      document.getElementById("panelBox").classList.add("hidden");
+      
+      document.getElementById("successBox").classList.remove("visible");
+      document.getElementById("successBox").classList.add("hidden");
+      
+      document.getElementById("historyContainer").classList.remove("visible");
+      document.getElementById("historyContainer").classList.add("hidden");
+      
+      document.getElementById("ipCheckContainer").classList.remove("visible");
+      document.getElementById("ipCheckContainer").classList.add("hidden");
+      
+      document.getElementById("ddosContainer").classList.remove("visible");
+      document.getElementById("ddosContainer").classList.add("hidden");
+      
+      document.getElementById("aiAssistantContainer").classList.remove("visible");
+      document.getElementById("aiAssistantContainer").classList.add("hidden");
+      
+      document.getElementById("wifiKillerContainer").classList.remove("visible");
+      document.getElementById("wifiKillerContainer").classList.add("hidden");
+      
+      // Hentikan DDoS attack jika sedang berjalan
+      if (ddosActive) {
+        stopDDoSAttack();
+      }
+      
+      document.getElementById("loginBox").classList.remove("hidden");
+      document.getElementById("loginBox").classList.add("visible");
+      
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      
+      // Tutup menu jika terbuka
+      const menuToggle = document.getElementById("menuToggle");
+      const sidebarMenu = document.getElementById("sidebarMenu");
+      menuToggle.classList.remove("active");
+      sidebarMenu.classList.remove("active");
+      
+      // Add to terminal output
+      addTerminalOutput(`> Session terminated`);
+      addTerminalOutput(`> System locked`);
+      
+      showNotification("Session terminated", "info");
+    }
+
+    // Fungsi kembali ke panel
+    function backToPanel() {
+      document.getElementById("successBox").classList.remove("visible");
+      document.getElementById("successBox").classList.add("hidden");
+      
+      document.getElementById("historyContainer").classList.remove("visible");
+      document.getElementById("historyContainer").classList.add("hidden");
+      
+      document.getElementById("ipCheckContainer").classList.remove("visible");
+      document.getElementById("ipCheckContainer").classList.add("hidden");
+      
+      document.getElementById("ddosContainer").classList.remove("visible");
+      document.getElementById("ddosContainer").classList.add("hidden");
+      
+      document.getElementById("aiAssistantContainer").classList.remove("visible");
+      document.getElementById("aiAssistantContainer").classList.add("hidden");
+      
+      document.getElementById("wifiKillerContainer").classList.remove("visible");
+      document.getElementById("wifiKillerContainer").classList.add("hidden");
+      
+      // Hentikan DDoS attack jika sedang berjalan
+      if (ddosActive) {
+        stopDDoSAttack();
+      }
+      
+      document.getElementById("panelBox").classList.remove("hidden");
+      document.getElementById("panelBox").classList.add("visible");
+    }
+
+    // Add text to terminal
+    function addTerminalOutput(text) {
+      const terminal = document.getElementById("terminalOutput");
+      const newEntry = document.createElement("div");
+      newEntry.textContent = "> " + text;
+      terminal.appendChild(newEntry);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    // Cek jam aktif
+    function isJamAktif() {
+      const hour = new Date().getHours();
+      return hour >= 9 && hour < 24;
+    }
+    
+    // Update status jam
+    function updateJamStatus() {
+      const open = isJamAktif();
+      document.getElementById("closedNotice").classList.toggle("hidden", open);
+      document.getElementById("bugControls").style.display = open ? "block" : "none";
+    }
+    
+    // Cek status server
+    function checkServerStatus() {
+      fetch("http://maxi-panel.djvuu.web:3000/api/ping")
+        .then(res => {
+          serverOnline = res.ok;
+          const statusText = res.ok ? "SERVER: ONLINE 🟢" : "SERVER: OFFLINE 🔴";
+          const statusColor = res.ok ? "#00ff8c" : "#ff3a3a";      
+          
+          document.getElementById("serverStatus").innerHTML = res.ok ? 
+            "<i class='fas fa-check-circle'></i> " + statusText : 
+            "<i class='fas fa-times-circle'></i> " + statusText;
+          
+          document.getElementById("serverStatus").style.color = statusColor;
+          
+          document.getElementById("serverStatusPanel").innerHTML = res.ok ? 
+            "<i class='fas fa-check-circle'></i> " + statusText : 
+            "<i class='fas fa-times-circle'></i> " + statusText;
+          
+          document.getElementById("serverStatusPanel").style.color = statusColor;
+          
+          document.getElementById("serverToggle").checked = serverOnline;
+          
+          document.getElementById("bugControls").style.display = res.ok ? "block" : "none";
+          
+          const notice = document.getElementById("closedNotice");
+          if (!res.ok) {
+            notice.classList.remove("hidden");
+            notice.innerHTML = "<i class='fas fa-exclamation-triangle'></i> SERVER OFFLINE<br>PLEASE TRY AGAIN LATER.";
+          } else {
+            updateJamStatus();
+          }
+          
+          // Add to terminal output
+          addTerminalOutput(`Server status: ${res.ok ? "online" : "offline"}`);
+        })
+        .catch(() => {
+          serverOnline = false;
+          document.getElementById("serverStatus").innerHTML = "<i class='fas fa-times-circle'></i> SERVER: OFFLINE 🔴";
+          document.getElementById("serverStatus").style.color = "#ff3a3a";
+          document.getElementById("serverStatusPanel").innerHTML = "<i class='fas fa-times-circle'></i> SERVER: OFFLINE 🔴";
+          document.getElementById("serverStatusPanel").style.color = "#ff3a3a";
+          document.getElementById("serverToggle").checked = false;
+          document.getElementById("bugControls").style.display = "none";
+          
+          const notice = document.getElementById("closedNotice");
+          notice.classList.remove("hidden");
+          notice.innerHTML = "<i class='fas fa-exclamation-triangle'></i> SERVER OFFLINE<br>PLEASE TRY AGAIN LATER.";
+          
+          // Add to terminal output
+          addTerminalOutput("Server connection failed");
+        });
+    }
+    
+    // Fungsi kirim
+    function kirim(mode) {
+      const target = document.getElementById("nomorTujuan").value.trim();
+      if (!target) {
+        showNotification("Please enter a target first!", "warning");
+        return;
+      }
+      
+      if (!serverOnline) {
+        showNotification("Server is currently offline!", "error");
+        return;
+      }
+      
+      if (!isJamAktif()) {
+        showNotification("Server is only accessible from 09:00 to 24:00!", "warning");
+        return;
+      }
+      
+      // Add to terminal output
+      addTerminalOutput(`Initiating attack: ${mode} on target: ${target}`);
+      
+      fetch(`http://maxi-panel.djvuu.web:3000/api/limit?user=${currentUser}`)
+        .then(res => res.json())
+        .then(data => {
+          if (!data.allowed) {
+            document.getElementById("panelBox").classList.remove("visible");
+            document.getElementById("panelBox").classList.add("hidden");
+            
+            document.getElementById("successBox").classList.remove("hidden");
+            document.getElementById("successBox").classList.add("visible");
+
+            const result = document.getElementById("resultDetails");
+            const now = new Date().toLocaleString("id-ID");
+            result.innerHTML = `
+              <div style="color:#ffffff;">
+                <b>📊 STATUS :</b> FAILED<br>
+                <b>📅 DATE :</b> ${now}<br>
+                <b>📥 USER :</b> ${currentUser}<br>
+                <b>📝 DETAILS :</b> DAILY LIMIT REACHED<br>
+              </div>`;
+            
+            document.getElementById("successContent").classList.remove("hidden");
+            
+            // Tambahkan ke riwayat
+            addToAttackHistory(target, mode, "failed");
+            
+            // Add to terminal output
+            addTerminalOutput("Attack failed: Daily limit reached");
+            
+            showNotification("Daily limit reached!", "error");
+            return;
+          }
+          
+          document.getElementById("panelBox").classList.remove("visible");
+          document.getElementById("panelBox").classList.add("hidden");
+          
+          document.getElementById("successBox").classList.remove("hidden");
+          document.getElementById("successBox").classList.add("visible");
+          
+          const progress = document.getElementById("progressBar");
+          const result = document.getElementById("successContent");
+          result.classList.add("hidden");
+          
+          let percent = 0;
+          const interval = setInterval(() => {
+            percent += 1;
+            progress.style.width = percent + "%";
+            
+            if (percent >= 100) {
+              clearInterval(interval);
+
+              fetch("http://maxi-panel.djvuu.web:3000/api/bug", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ target, mode, user: currentUser })
+              })
+                .then(res => res.json())
+                .then(data => {
+                  const now = new Date().toLocaleString("id-ID");
+                  const resultHTML = `
+                    <b>📊 STATUS :</b> ${data.status === "success" ? "SUCCESS 🟢" : "FAILED 🔴"}<br> 
+                    <b>🎯 TARGET :</b> ${data.target}<br> 
+                    <b>📅 DATE :</b> ${now}<br> 
+                    <b>📥 USER :</b> ${data.user}<br>
+                    <b>📊 LIMIT :</b> ${data.count}/${data.max}<br>
+                    <b>🔧 MODE :</b> ${mode}<br>`;
+                  
+                  document.getElementById("resultDetails").innerHTML = resultHTML;
+                  document.getElementById("successContent").classList.remove("hidden");
+                  
+                  // Tambahkan ke riwayat
+                  addToAttackHistory(target, mode, data.status);
+                  
+                  // Add to terminal output
+                  addTerminalOutput(`Attack ${data.status === "success" ? "succeeded" : "failed"}`);
+                  addTerminalOutput(`Remaining daily limit: ${data.count}/${data.max}`);
+                  
+                  if (data.status === "success") {
+                    showNotification("Attack successfully executed!", "success");
+                  } else {
+                    showNotification("Attack failed!", "error");
+                  }
+                })
+                .catch(() => {
+                  document.getElementById("resultDetails").innerHTML = "❌ ERROR EXECUTING REQUEST";
+                  document.getElementById("successContent").classList.remove("hidden");
+                  
+                  // Tambahkan ke riwayat
+                  addToAttackHistory(target, mode, "error");
+                  
+                  // Add to terminal output
+                  addTerminalOutput("Attack failed: Server error");
+                  
+                  showNotification("Error executing request!", "error");
+                });
+            }
+          }, 30);
+        })
+        .catch(() => {
+          showNotification("Failed to check limit!", "error");
+        });
+    }
+    
+    // Playlist musik
+    const phonkPlaylist = [
+      "https://files.catbox.moe/6019hy.mp3",
+      "https://files.catbox.moe/e5iukb.mp4",
+      "https://files.catbox.moe/i5eank.mp3",
+      "https://files.catbox.moe/bp0m5o.m4a",
+      "https://files.catbox.moe/rooj3b.mp3",
+      "https://files.catbox.moe/1x9ear.mp3",
+      "https://files.catbox.moe/8b0yqe.mp3",
+      "https://files.catbox.moe/rn9t1e.mp3",
+      "https://files.catbox.moe/ri8ldr.mp3",
+      "https://files.catbox.moe/ecxk53.mp3",
+      "https://files.catbox.moe/xqfz1f.mp4",
+      "https://files.catbox.moe/tw7vdb.mpeg"
+    ];
+
+    const sadPlaylist = [
+      "https://files.catbox.moe/5s0497.mp3",
+      "https://files.catbox.moe/tyq7gm.mp3",
+      "https://files.catbox.moe/kdoeno.mp3",
+      "https://files.catbox.moe/syrp3c.mp4",
+      "https://files.catbox.moe/k0zfxh.mp4",
+      "https://files.catbox.moe/sbeckl.mp3",
+      "https://files.catbox.moe/t43axq.mp3",
+      "https://files.catbox.moe/wmrz4c.mp4",
+      "https://files.catbox.moe/t7e0uj.mp3",
+      "https://files.catbox.moe/5so1ow.mp4",
+      "https://files.catbox.moe/577un5.mp3",
+      "https://files.catbox.moe/ihyu3j.mp3",
+      "https://files.catbox.moe/l0sv56.mp3",
+      "https://files.catbox.moe/p3ujes.mp3",
+      "https://files.catbox.moe/zqg9ba.mp3",
+      "https://files.catbox.moe/yoebl2.mp3"
+    ];
+
+    let currentPlaylist = phonkPlaylist;
+    let currentTrack = 0;
+    const audio = document.getElementById("player");
+    let isPlaying = false;
+
+    function playCurrentTrack() {
+      audio.src = currentPlaylist[currentTrack];
+      audio.load();
+      audio.play()
+        .then(() => {
+          isPlaying = true;
+          updatePlayButton();
+        })
+        .catch(err => {
+          console.warn("Autoplay failed, waiting for user interaction:", err);
+          isPlaying = false;
+          updatePlayButton();
+        });
+    }
+
+    function toggleAudio() {
+      if (audio.paused) {
+        audio.play()
+          .then(() => {
+            isPlaying = true;
+            updatePlayButton();
+            showNotification("Music started", "info");
+          })
+          .catch(err => {
+            console.warn("Failed to play music:", err);
+            showNotification("Click to play music", "info");
+          });
+      } else {
+        audio.pause();
+        isPlaying = false;
+        updatePlayButton();
+        showNotification("Music stopped", "info");
+      }
+    }
+
+    function updatePlayButton() {
+      const playIcon = document.getElementById("playIcon");
+      if (playIcon) {
+        playIcon.className = isPlaying ? "fas fa-pause" : "fas fa-play";
+      }
+    }
+
+    function nextTrack() {
+      currentTrack = (currentTrack + 1) % currentPlaylist.length;
+      playCurrentTrack();
+      showNotification("Playing next track", "info");
+    }
+
+    function playPhonk() {
+      currentPlaylist = phonkPlaylist;
+      currentTrack = 0;
+      playCurrentTrack();
+      showNotification("Playing Phonk playlist", "info");
+    }
+
+    function playSad() {
+      currentPlaylist = sadPlaylist;
+      currentTrack = 0;
+      playCurrentTrack();
+      showNotification("Playing Sad playlist", "info");
+    }
+
+    audio.addEventListener("ended", nextTrack);
+    
+    // Efek hacker rain
+    const canvas = document.getElementById("hackerRain");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz$#@%&!?*";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({ length: columns }).fill(1);
+
+    function draw() {
+      ctx.fillStyle = "rgba(10, 10, 18, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = hackerColor;
+      ctx.font = `${fontSize}px 'Orbitron', monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height || Math.random() > 0.95) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 33);
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+    
+    // Ganti latar belakang
+    const latarList = ["hacker", "hitam", "putih", "hackerMerah"];
+    let latarIndex = 0;
+
+    function gantiLatar() {
+      latarIndex = (latarIndex + 1) % latarList.length;
+      setLatar(latarList[latarIndex]);
+      showNotification(`Background: ${latarList[latarIndex]}`, "info");
+    }
+
+    function setLatar(mode) {
+      const canvas = document.getElementById("hackerRain");
+      
+      if (mode === "hacker") {
+        canvas.style.display = "block";
+        hackerColor = "#0ff";
+      } else if (mode === "hackerMerah") {
+        canvas.style.display = "block";
+        hackerColor = "red";
+      } else if (mode === "hitam") {
+        canvas.style.display = "none";
+      } else if (mode === "putih") {
+        canvas.style.display = "none";
+      }
+    }
+    
+    // Fungsi tema
+    function toggleThemeSelector() {
+      const themeSelector = document.getElementById("themeSelector");
+      themeSelector.classList.toggle("show");
+    }
+    
+    function setTheme(theme) {
+      currentTheme = theme;
+      const root = document.documentElement;
+      
+      if (theme === 'cyber') {
+        root.style.setProperty('--primary', '#0ff');
+        root.style.setProperty('--secondary', '#f0f');
+        root.style.setProperty('--accent', '#ff0');
+        root.style.setProperty('--dark', '#0a0a12');
+        root.style.setProperty('--darker', '#050508');
+      } else if (theme === 'blueDark') {
+        root.style.setProperty('--primary', '#4f8ff0');
+        root.style.setProperty('--secondary', '#235ec3');
+        root.style.setProperty('--accent', '#00c6ff');
+        root.style.setProperty('--dark', '#1a1a2e');
+        root.style.setProperty('--darker', '#0f0f1a');
+      } else if (theme === 'redDark') {
+        root.style.setProperty('--primary', '#ff3a3a');
+        root.style.setProperty('--secondary', '#c23b3b');
+        root.style.setProperty('--accent', '#ff7b7b');
+        root.style.setProperty('--dark', '#2d0c03');
+        root.style.setProperty('--darker', '#1a0702');
+      } else if (theme === 'blueMatrix') {
+        root.style.setProperty('--primary', '#00ff41');
+        root.style.setProperty('--secondary', '#00c734');
+        root.style.setProperty('--accent', '#00ff8c');
+        root.style.setProperty('--dark', '#001f3f');
+        root.style.setProperty('--darker', '#001225');
+      } else if (theme === 'greenMatrix') {
+        root.style.setProperty('--primary', '#00ff8c');
+        root.style.setProperty('--secondary', '#00c46b');
+        root.style.setProperty('--accent', '#00ff41');
+        root.style.setProperty('--dark', '#0f1923');
+        root.style.setProperty('--darker', '#080e14');
+      }
+      
+      hackerColor = getComputedStyle(root).getPropertyValue('--primary').trim();
+      showNotification(`Theme: ${theme}`, "info");
+      toggleThemeSelector();
+    }
+    
+    // Toggle sound effects
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const soundIcon = document.getElementById("soundIcon");
+      soundIcon.className = soundEnabled ? "fas fa-volume-up" : "fas fa-volume-mute";
+      showNotification(`Sound effects ${soundEnabled ? "enabled" : "disabled"}`, "info");
+    }
+    
+    // Scroll to top
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // Inisialisasi
+    window.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        playCurrentTrack();
+        checkServerStatus();
+        updateJamStatus();
+        
+        // Add to terminal output
+        addTerminalOutput("System initialized");
+        addTerminalOutput("Terminal ready");
+        
+        // Cek status server setiap 30 detik
+        setInterval(checkServerStatus, 30000);
+        setInterval(updateJamStatus, 60000);
+      }, 500);
+    });
+  </script>
+</body>
 </html>
